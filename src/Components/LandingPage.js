@@ -14,34 +14,8 @@ const LandingPage = () => {
   //     rank: "",
   //   });
 
-  // ! Test for collecting data
-  //   const handleLoginData = (event) => {
-  //     switch (event.target.name) {
-  //       case "username":
-  //         setUsername(event.target.value);
-  //         break;
-  //       case "password":
-  //         setPassword(event.target.value);
-  //         break;
-  //       default:
-  //         break;
-  //     }
-
-  //     const loginData = {
-  //       username: username,
-  //       password: password,
-  //     };
-
-  //     console.log(loginData.username);
-  //     console.log(loginData.password);
-  //   };
-
-  // ! LOGIN functionality
-  // todo - POST and FETCH request for login - connect to database and setup correct path
-  // Submit login data function - updated onChange..
-  const submitLoginData = (event) => {
-    event.preventDefault();
-
+  // Function to change the state variable corresponding to a form input the user tried to change
+  const updateData = (event) => {
     // Switch
     switch (event.target.name) {
       case "username":
@@ -53,8 +27,15 @@ const LandingPage = () => {
       default:
         break;
     }
+  };
 
-    // Collected Data
+  // ! LOGIN functionality
+  // todo - POST and FETCH request for login - connect to database and setup correct path
+  // Submit login data function - updated onChange..
+  const submitLoginData = (event) => {
+    event.preventDefault();
+
+    // Collected Data from update data...
     const loginData = {
       username: username,
       password: password,
@@ -94,6 +75,8 @@ const LandingPage = () => {
     //   });
   };
 
+  // ! Set same functionality for sign up as login
+
   return (
     <div className="landing-page-conatainer">
       {/* Welcome conatainer containing login and sign up options */}
@@ -103,18 +86,18 @@ const LandingPage = () => {
         <div className="login-container">
           <h2>Already a User?</h2>
           <h3>Login</h3>
-          <form className="login-form" onSubmit="">
+          <form className="login-form" onSubmit={submitLoginData}>
             <label>Username</label>
             <input
               name="username"
-              onChange={submitLoginData}
+              onChange={updateData}
               value={username}
             ></input>
 
             <label>Password</label>
             <input
               name="password"
-              onChange={submitLoginData}
+              onChange={updateData}
               value={password}
             ></input>
 
@@ -136,8 +119,9 @@ const LandingPage = () => {
             <label>Password</label>
             <input name="" onChange="" value=""></input>
 
-            <label>Confirm Password</label>
-            <input name="" onChange="" value=""></input>
+            {/*  // ! Do we want a confirm password? */}
+            {/* <label>Confirm Password</label>
+            <input name="" onChange="" value=""></input> */}
             <button>Sign me up!</button>
           </form>
         </div>
