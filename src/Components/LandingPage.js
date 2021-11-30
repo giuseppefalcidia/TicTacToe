@@ -16,14 +16,16 @@ const LandingPage = () => {
 
             <label>Password</label>
             <input name="" onChange="" value=""></input>
+
+            <button>Login</button>
           </form>
         </div>
 
         {/* // ? Sign up container */}
 
         <div className="sign-up-container">
-          <h2>Sign Up</h2>
-          <form className="login-form" onSubmit="">
+          <h3>Sign Up</h3>
+          <form className="sign-up-form" onSubmit="">
             <label>Username</label>
             <input name="" onChange="" value=""></input>
 
@@ -35,6 +37,7 @@ const LandingPage = () => {
 
             <label>Confirm Password</label>
             <input name="" onChange="" value=""></input>
+            <button>Sign me up!</button>
           </form>
         </div>
       </div>
