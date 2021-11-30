@@ -1,0 +1,22 @@
+@import "./variables";
+@import "./reset";
+@import "./mixins";
+
+.app-container {
+  background-color: $off-white;
+}
+
+.app-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $light-beige;
+  height: 80px;
+}
+
+.main-heading {
+  color: $dark-brown;
+  letter-spacing: 0.1rem;
+  font-size: 3rem;
+}
