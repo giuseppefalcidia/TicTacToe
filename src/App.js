@@ -15,7 +15,7 @@ function App() {
 
         {/* // !!! Conditional rendering to come.. so GamePage will only open once loged in - can still be styled and elements added :)  */}
 
-        <GamePage />
+        {/* <GamePage /> */}
       </main>
     </div>
   );

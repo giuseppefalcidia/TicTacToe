@@ -1,7 +1,45 @@
 import React from "react";
 
 const LandingPage = () => {
-  return <div>LOGIN CONTAINER</div>;
+  return (
+    <div className="landing-page-conatainer">
+      {/* Welcome conatainer containing login and sign up options */}
+
+      <div className="welcome-container">
+        {/* // ? Login container */}
+        <div className="login-container">
+          <h2>Already a User?</h2>
+          <h3>Login</h3>
+          <form className="login-form" onSubmit="">
+            <label>Username</label>
+            <input name="" onChange="" value=""></input>
+
+            <label>Password</label>
+            <input name="" onChange="" value=""></input>
+          </form>
+        </div>
+
+        {/* // ? Sign up container */}
+
+        <div className="sign-up-container">
+          <h2>Sign Up</h2>
+          <form className="login-form" onSubmit="">
+            <label>Username</label>
+            <input name="" onChange="" value=""></input>
+
+            <label>Email</label>
+            <input name="" onChange="" value=""></input>
+
+            <label>Password</label>
+            <input name="" onChange="" value=""></input>
+
+            <label>Confirm Password</label>
+            <input name="" onChange="" value=""></input>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default LandingPage;
