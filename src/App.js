@@ -227,12 +227,18 @@ const App = () => {
               }
             />
 
+<<<<<<< HEAD
             {/* <GamePage /> */}
             <Route path="/gamepage" exact element={<GamePage />} />
           </Routes>
         </main>
       </div>
     </Router>
+=======
+        <GamePage />
+      </main>
+    </div>
+>>>>>>> development
   );
 };
 
