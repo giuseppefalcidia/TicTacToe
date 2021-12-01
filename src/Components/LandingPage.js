@@ -236,7 +236,7 @@ const LandingPage = (props) => {
         </div>
 
         {/* // !! Will navigate to sign up section */}
-        <div>Or are you new here?</div>
+        <div className="signup-heading">Or are you new here?</div>
         <button
           // onClick={displaySignIn}
           name="signUp"
