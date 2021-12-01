@@ -73,7 +73,7 @@ const LandingPage = () => {
     };
 
     // todo - set path
-    fetch("https://localhost:5000/login", settings)
+    fetch("http://localhost:5000/login", settings)
       .then((response) => {
         if (response.ok) {
           return response.json();
