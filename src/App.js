@@ -10,6 +10,7 @@ import {
   Route,
   Routes,
   Link,
+  useNavigate,
 } from "react-router-dom";
 
 import "./Styling/App.scss";
@@ -23,6 +24,13 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+
+  // ! Adding manually as I could not get it to merge
+  // let history = useNavigate();
+  // ! - How to implement?
+  // const redirectToDashboard = () => {
+  //   history.push("/dashboard");
+  // };
 
   // todo - Current User Object
   const [currentUser, setCurrentUser] = useState({
@@ -247,7 +255,11 @@ const App = () => {
               }
             />
 
-            <Route path="/dashboard" exact element={<Dashboard />} />
+            <Route
+              path="/dashboard"
+              exact
+              element={<Dashboard username={currentUser.username} />}
+            />
 
             <Route path="/gamepage" exact element={<GamePage />} />
           </Routes>
