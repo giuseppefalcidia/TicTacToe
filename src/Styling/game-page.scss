@@ -1,174 +1,174 @@
-// @import "./variables";
-// @import "./reset";
-// @import "./mixins";
+@import "./variables";
+@import "./reset";
+@import "./mixins";
 
-// * {
-//   padding: 0;
-//   margin: 0;
-//   font-family: sans-serif;
-//   box-sizing: border-box;
-// }
+* {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
 
-// body {
-//   display: grid;
-//   place-items: center;
-//   height: 100vh;
-//   background: #131419;
-// }
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  background: #131419;
+}
 
-// // #container {
-// //   height: auto;
-// //   width: auto;
-// //   background: linear-gradient(to bottom, #2b2d47 10%, #181926);
-// //   border-radius: 20px;
-// //   padding: 30px;
-// //   box-shadow: inset 1px 2px 0 rgb(255 255 255 / 18%),
-// //     inset -2px -2px 2px rgb(0 0 0 / 65%);
-// // }
-
-// #startingPage {
-//   height: 220px;
-//   width: 400px;
-// }
-
-// #startingPage h2,
-// #winner h2 {
-//   font-size: 50px;
-//   color: #cdcfdb;
-// }
-
-// #startingPage #line {
-//   height: 1px;
-//   width: 100%;
-//   background: #c3cfdb;
-//   margin: 20px 0;
-// }
-
-// #startingPage h4 {
-//   font-size: 25px;
-//   color: #b9b9c5;
-// }
-
-// #startingPage #button {
+// #container {
 //   height: auto;
-//   width: 100%;
-//   margin: 30px 0;
-//   display: flex;
-//   flex-direction: row;
+//   width: auto;
+//   background: linear-gradient(to bottom, #2b2d47 10%, #181926);
+//   border-radius: 20px;
+//   padding: 30px;
+//   box-shadow: inset 1px 2px 0 rgb(255 255 255 / 18%),
+//     inset -2px -2px 2px rgb(0 0 0 / 65%);
 // }
 
-// #button button {
-//   height: 55px;
-//   width: 180px;
-//   cursor: pointer;
-//   background: #29cde0;
-//   border: none;
-//   outline: none;
-//   color: #2b2d47;
-//   font-weight: bold;
-//   font-size: 15px;
-//   border-radius: 10px;
-//   transform: scale(1);
-//   box-shadow: 2px 2px 2px rgb(255 255 255 / 26%), -2px -2px 5px rgb(0 0 0 / 87%);
-//   transition: 0.5s;
-// }
+#startingPage {
+  height: 220px;
+  width: 400px;
+}
 
-// #button button:first-child {
-//   margin-right: 40px;
-// }
+#startingPage h2,
+#winner h2 {
+  font-size: 50px;
+  color: #cdcfdb;
+}
 
-// #startingPage #button button:hover,
-// #winner #button button:hover {
-//   transform: scale(0.9);
-// }
+#startingPage #line {
+  height: 1px;
+  width: 100%;
+  background: #c3cfdb;
+  margin: 20px 0;
+}
 
-// #winner {
-//   display: none;
-// }
+#startingPage h4 {
+  font-size: 25px;
+  color: #b9b9c5;
+}
 
-// #winner #button {
-//   height: auto;
-//   width: 100%;
-//   display: flex;
-//   justify-content: center;
-// }
+#startingPage #button {
+  height: auto;
+  width: 100%;
+  margin: 30px 0;
+  display: flex;
+  flex-direction: row;
+}
 
-// #winner #button button {
-//   margin-top: 20px;
-// }
+#button button {
+  height: 55px;
+  width: 180px;
+  cursor: pointer;
+  background: #29cde0;
+  border: none;
+  outline: none;
+  color: #2b2d47;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 10px;
+  transform: scale(1);
+  box-shadow: 2px 2px 2px rgb(255 255 255 / 26%), -2px -2px 5px rgb(0 0 0 / 87%);
+  transition: 0.5s;
+}
 
-// #mainPage {
-//   height: 550px;
-//   width: 350px;
-//   padding: 20px;
-//   position: relative;
-//   display: none;
-// }
+#button button:first-child {
+  margin-right: 40px;
+}
 
-// #mainPage #headerBtns {
-//   height: 60px;
-//   width: 310px;
-//   border-radius: 50px;
-//   position: relative;
-//   display: flex;
-//   flex-direction: row;
-//   box-shadow: 2px 2px 2px rgb(255 255 255 / 26%), -2px -2px 5px rgb(0 0 0 / 87%);
-// }
+#startingPage #button button:hover,
+#winner #button button:hover {
+  transform: scale(0.9);
+}
 
-// #mainPage #headerBtns button {
-//   height: 60px;
-//   width: 160px;
-//   border-radius: 50px;
-//   border: none;
-//   outline: none;
-//   background: transparent;
-//   font-size: 20px;
-//   color: #fff;
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   z-index: 2;
-//   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
-// }
+#winner {
+  display: none;
+}
 
-// #mainPage #headerBtns #O_Turn {
-//   left: 160px;
-//   z-index: 3;
-// }
+#winner #button {
+  height: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
-// #showChange {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   height: 60px;
-//   width: 160px;
-//   border-radius: 50px;
-//   background: #29cde0;
-//   z-index: 1;
-//   transition: 0.2s;
-// }
+#winner #button button {
+  margin-top: 20px;
+}
 
-// #gameBoard {
-//   height: 400px;
-//   width: 330px;
-//   position: absolute;
-//   top: 150px;
-//   left: 10px;
-//   display: grid;
-//   grid-template-columns: 100px 100px 100px;
-//   grid-gap: 15px;
-// }
+#mainPage {
+  height: 550px;
+  width: 350px;
+  padding: 20px;
+  position: relative;
+  display: none;
+}
 
-// .boxes {
-//   height: 100px;
-//   width: 100px;
-//   box-shadow: 2px 2px 2px rgb(255 255 255 / 26%), -2px -2px 5px rgb(0 0 0 / 87%);
-//   display: grid;
-//   place-items: center;
-//   cursor: pointer;
-// }
+#mainPage #headerBtns {
+  height: 60px;
+  width: 310px;
+  border-radius: 50px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 2px 2px 2px rgb(255 255 255 / 26%), -2px -2px 5px rgb(0 0 0 / 87%);
+}
 
-// .boxes i {
-//   font-size: 60px;
-//   color: #29cde0;
-// }
+#mainPage #headerBtns button {
+  height: 60px;
+  width: 160px;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 20px;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+#mainPage #headerBtns #O_Turn {
+  left: 160px;
+  z-index: 3;
+}
+
+#showChange {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 60px;
+  width: 160px;
+  border-radius: 50px;
+  background: #29cde0;
+  z-index: 1;
+  transition: 0.2s;
+}
+
+#gameBoard {
+  height: 400px;
+  width: 330px;
+  position: absolute;
+  top: 150px;
+  left: 10px;
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-gap: 15px;
+}
+
+.boxes {
+  height: 100px;
+  width: 100px;
+  box-shadow: 2px 2px 2px rgb(255 255 255 / 26%), -2px -2px 5px rgb(0 0 0 / 87%);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.boxes i {
+  font-size: 60px;
+  color: #29cde0;
+}
