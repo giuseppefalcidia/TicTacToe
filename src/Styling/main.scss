@@ -2,25 +2,6 @@
 @import "./reset";
 @import "./mixins";
 
-.app-container {
-  background-color: $off-white;
-}
-
-.app-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: $light-beige;
-  height: 80px;
-}
-
-.app-heading {
-  color: $dark-brown;
-  letter-spacing: 0.1rem;
-  font-size: 3rem;
-}
-
 .main-container {
   width: 100vw;
   height: 100vh;

@@ -5,6 +5,26 @@
 .landing-page-container {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100vw;
+  background-color: $background;
+}
+
+.app-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  // background-color: $light-beige;
+  height: 250px;
+}
+
+.app-heading {
+  // color: $dark-brown;
+  letter-spacing: 0.1rem;
+  font-size: 3rem;
 }
 
 .welcome-container {
@@ -24,3 +44,8 @@
   flex-direction: column;
   align-items: center;
 }
+
+// !! ref display on button click..
+// .sign-in-div {
+//   display: none;
+// }

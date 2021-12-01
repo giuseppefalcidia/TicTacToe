@@ -7,9 +7,6 @@ import "./Styling/App.scss";
 function App() {
   return (
     <div className="app-container">
-      <header className="app-header">
-        <h1 className="app-heading">Tic Tac Toe</h1>
-      </header>
       <main className="main-container">
         <LandingPage />
 
