@@ -76,6 +76,7 @@ const LandingPage = () => {
     fetch("http://localhost:5000/login", settings)
       .then((response) => {
         if (response.ok) {
+          console.log(response);
           return response.json();
         } else {
           switch (response.status) {
@@ -100,6 +101,70 @@ const LandingPage = () => {
         alert(err.message);
         setUsername("");
         setPassword("");
+      });
+  };
+
+  // !! ======
+
+  const addLoginData = (event) => {
+    event.preventDefault();
+
+    // Collected Data from update data...
+    const loginData = {
+      username: username,
+      password: password,
+      email: email,
+    };
+
+    //  For testing...
+    // console.log(loginData.username);
+    // console.log(loginData.password);
+
+    // todo - uncomment once set up with db
+    const jsonLoginData = JSON.stringify(loginData);
+
+    const settings = {
+      method: "POST",
+      body: jsonLoginData,
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    // todo - set path
+    fetch("http://localhost:5000/user", settings)
+      .then((response) => {
+        if (response.ok) {
+          console.log(response);
+          return response.json();
+        } else {
+          switch (response.status) {
+            case 401:
+              return response.json().then((err) => {
+                throw new Error(err.message);
+              });
+            default:
+              throw new Error("unknown");
+          }
+        }
+      })
+      .then((data) => {
+        // !! Check back with currentUser
+        console.log(data);
+        // setCurrentUser(data);
+        setUsername("");
+        setPassword("");
+        setEmail("");
+        // if (data.token) {
+        //  navigate('/dashboard')
+        // }
+      })
+      .catch((err) => {
+        alert(err.message);
+        setUsername("");
+        setPassword("");
+        setEmail("");
       });
   };
 
@@ -181,6 +246,27 @@ const LandingPage = () => {
         >
           Sign Up
         </button>
+
+        <div className="sign-in-div" ref={signUpDisplay}>
+          {" "}
+          <form className="sign-up-form" onSubmit={addLoginData}>
+            <label>Username</label>{" "}
+            <input
+              name="username"
+              onChange={updateData}
+              value={username}
+            ></input>
+            <label>Email</label>
+            <input name="email" onChange={updateData} value={email}></input>
+            <label>Password</label>
+            <input
+              name="password"
+              onChange={updateData}
+              value={password}
+            ></input>
+            <button>Sign me up!</button>
+          </form>
+        </div>
       </div>
     </div>
   );
