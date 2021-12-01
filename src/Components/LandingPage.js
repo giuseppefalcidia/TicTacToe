@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
+// AOS
+import Aos from "aos";
+import "aos/dist/aos.css";
+
 const LandingPage = (props) => {
+  // AOS functionality
+  useEffect(() => {
+    Aos.init({ duration: 1000, once: true });
+  }, []);
+
   return (
-    <div className="landing-page-container">
+    <div
+      className="landing-page-container"
+      // AOS
+      data-aos="fade-down"
+      data-aos-duration="1200"
+    >
       {/* Welcome container containing login and sign up options */}
       <header className="app-header">
         <h1 className="app-heading">
@@ -36,8 +50,7 @@ const LandingPage = (props) => {
           </form>
         </div>
 
-        {/* // !! Will navigate to sign up section */}
-
+        {/* //  Will navigate to sign up section */}
         <div className="new-user-container">
           <div className="signup-heading">Or are you new here?</div>
 
