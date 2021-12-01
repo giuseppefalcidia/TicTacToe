@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-
-const [editUser, setEditUser] = useState(false);
-
-const handleEditUser = () => {
-    setEditUser((p) => !p)
-}
+// import { Link } from "react-router-dom";
 
 const Dashboard = (props) => {
+    const [editUser, setEditUser] = useState(false);
+
+    const handleEditUser = () => {
+        setEditUser((p) => !p)
+    }
+
+    const startGame = () => {
+
+    }
+    
     return(
-        <div>
+        <div className="dashbody">
             <h1>Welcome {props.username}!</h1>
 
             <button onClick={handleEditUser}>edit Userdate</button>
@@ -22,13 +27,12 @@ const Dashboard = (props) => {
                     <div>
                         <label id="change-password"></label>
                         <input type="text" id="change-password"></input>
-                        <button>confirm</button>
+                        <button type="submit">confirm</button>
                     </div>
                 </form>
             </div>
             )}
-
-            <button>Start Game</button>
+            <button onClick={startGame}>Start Game</button>
         </div>
     )
 }
