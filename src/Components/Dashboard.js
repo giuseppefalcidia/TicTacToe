@@ -8,8 +8,10 @@ const Dashboard = (props) => {
   };
 
   return (
-    <div>
-      <h1>Welcome {props.username}!</h1>
+    <div className="dashboard-container">
+      <h1 className="dashboard-header">
+        Welcome <span className="dashboard-header-user">{props.username}</span>!
+      </h1>
 
       <button onClick={handleEditUser}>edit Userdate</button>
       {editUser === false ? (

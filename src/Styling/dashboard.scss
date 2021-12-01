@@ -1,0 +1,21 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 80vw;
+  height: auto;
+  margin-top: 5rem;
+}
+
+.dashboard-header {
+  font-family: $main-font-font-family;
+  font-size: 3rem;
+  color: $fuschia;
+  text-align: center;
+}
+
+// ! Come back to style
+.dashboard-header-user {
+  color: $green;
+}
