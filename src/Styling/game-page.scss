@@ -27,26 +27,28 @@ body {
 // }
 
 #startingPage {
+  margin-top: 5rem;
   height: 220px;
   width: 400px;
+  text-align: center;
 }
 
 #startingPage h2,
 #winner h2 {
   font-size: 50px;
-  color: #cdcfdb;
+  color: $game-page-off-white;
 }
 
 #startingPage #line {
   height: 1px;
   width: 100%;
-  background: #c3cfdb;
+  background: $game-page-off-white;
   margin: 20px 0;
 }
 
 #startingPage h4 {
   font-size: 25px;
-  color: #b9b9c5;
+  color: $game-page-off-white;
 }
 
 #startingPage #button {
@@ -61,10 +63,10 @@ body {
   height: 55px;
   width: 180px;
   cursor: pointer;
-  background: #29cde0;
+  background: $main-light-blue;
   border: none;
   outline: none;
-  color: #2b2d47;
+  color: $main-dark-blue;
   font-weight: bold;
   font-size: 15px;
   border-radius: 10px;
@@ -123,7 +125,7 @@ body {
   outline: none;
   background: transparent;
   font-size: 20px;
-  color: #fff;
+  color: $white;
   position: absolute;
   top: 0;
   left: 0;
@@ -143,7 +145,7 @@ body {
   height: 60px;
   width: 160px;
   border-radius: 50px;
-  background: #29cde0;
+  background: $main-light-blue;
   z-index: 1;
   transition: 0.2s;
 }
@@ -170,5 +172,5 @@ body {
 
 .boxes i {
   font-size: 60px;
-  color: #29cde0;
+  color: $main-light-blue;
 }

@@ -5,7 +5,7 @@ import SignUp from "./Components/SignUp";
 
 import {
   BrowserRouter as Router,
-  Switch,
+  Redirect,
   Route,
   Routes,
   Link,
