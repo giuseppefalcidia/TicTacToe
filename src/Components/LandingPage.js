@@ -64,7 +64,7 @@ const LandingPage = () => {
     const jsonLoginData = JSON.stringify(loginData);
 
     const settings = {
-      method: "GET",
+      method: "POST",
       body: jsonLoginData,
       credentials: "include",
       header: {
@@ -73,7 +73,7 @@ const LandingPage = () => {
     };
 
     // todo - set path
-    fetch("https://localhost:3000/login", settings)
+    fetch("https://localhost:5000/login", settings)
       .then((response) => {
         if (response.ok) {
           return response.json();
