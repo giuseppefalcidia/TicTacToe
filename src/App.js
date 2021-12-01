@@ -98,6 +98,15 @@ const App = () => {
         }
       })
       .then((data) => {
+        // ? Successful tost message
+        const loginSuccessful = () => {
+          toast("Login successful!! Time to start playing! 👾  🎲", {
+            position: "top-center",
+            draggable: false,
+          });
+        };
+
+        loginSuccessful();
         setCurrentUser(data);
         setUsername("");
         setPassword("");
@@ -106,7 +115,16 @@ const App = () => {
         // }
       })
       .catch((err) => {
-        alert(err.message);
+        // ? Error toast message
+        const loginFailed = () => {
+          toast.error(err.message, {
+            position: "top-center",
+            draggable: false,
+          });
+        };
+
+        loginFailed();
+        // alert(err.message);
         setUsername("");
         setPassword("");
       });
@@ -158,6 +176,7 @@ const App = () => {
         }
       })
       .then((data) => {
+        // ? Successful tost message
         const signupSuccessful = () => {
           toast("Sign up successful!! Time to start playing! 👾  🎲", {
             position: "top-center",
@@ -178,7 +197,7 @@ const App = () => {
         // }
       })
       .catch((err) => {
-        // ! Error toast message
+        // ? Error toast message
         const signUpFailed = () => {
           toast.error(err.message, {
             position: "top-center",
@@ -227,18 +246,12 @@ const App = () => {
               }
             />
 
-<<<<<<< HEAD
             {/* <GamePage /> */}
             <Route path="/gamepage" exact element={<GamePage />} />
           </Routes>
         </main>
       </div>
     </Router>
-=======
-        <GamePage />
-      </main>
-    </div>
->>>>>>> development
   );
 };
 
