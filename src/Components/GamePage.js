@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../Styling/game-page.scss";
+
+// !!! Waiting for new component
 // import "./GamePageMainFunc.js";
 
+// AOS
+import Aos from "aos";
+import "aos/dist/aos.css";
+
 const GamePage = () => {
+  // AOS functionality
+  useEffect(() => {
+    Aos.init({ duration: 1000, once: true });
+  }, []);
   return (
     <>
       <meta charSet="UTF-8" />
@@ -11,7 +21,11 @@ const GamePage = () => {
       <link rel="stylesheet" href="css/style.css" />
       <div id="container">
         {/* Starting Page */}
-        <div id="startingPage">
+        <div
+          id="startingPage"
+          // AOS
+          data-aos="fade-down"
+        >
           <h2>Tic Tac Toe</h2>
           <div id="line" />
           <h4>Select Which You Want To Be?</h4>

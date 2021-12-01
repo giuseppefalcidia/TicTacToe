@@ -1,9 +1,9 @@
+// ? Mobile and universal
+
 .sign-in-page-container {
   display: flex;
-  // justify-content: center;
   flex-direction: column;
   align-items: center;
-
   width: 100vw;
   height: 100vh;
   background-color: $background;
@@ -13,10 +13,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
   width: 400px;
   height: 500px;
-
   font-family: $roboto-font-family;
 }
 
@@ -33,34 +31,28 @@
 
   input {
     margin-bottom: 1rem;
-
     padding: 0.3rem 0.3rem 0.3rem 1rem;
     border-radius: 0.1rem;
-
     border: none;
     outline: none;
+    font-size: 15px;
   }
 
   button {
     border: none;
     outline: none;
-
     margin-top: 1rem;
     padding: 0.3rem 1rem 0.3rem 1rem;
     border-radius: 0.5rem;
     background: $main-light-blue;
     font-size: 1rem;
     letter-spacing: 0.1rem;
-  }
-}
 
-.signup-heading {
-  width: 200px;
-  color: $main-powder-blue;
-  font-weight: 280;
-  letter-spacing: 1.5px;
-  font-size: 1.3rem;
-  text-align: center;
+    &:hover {
+      font-weight: bold;
+      background: $green;
+    }
+  }
 }
 
 .sign-up-container,
@@ -71,7 +63,8 @@
 }
 
 .signup-h3 {
-  font-size: 2rem;
+  font-size: 2.3rem;
+  letter-spacing: 2px;
   color: $main-light-blue;
   font-family: $main-font-font-family;
   margin-top: 6rem;

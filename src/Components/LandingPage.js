@@ -16,7 +16,6 @@ const LandingPage = (props) => {
       className="landing-page-container"
       // AOS
       data-aos="fade-down"
-      data-aos-duration="1200"
     >
       {/* Welcome container containing login and sign up options */}
       <header className="app-header">

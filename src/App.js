@@ -117,7 +117,7 @@ const App = () => {
       .catch((err) => {
         // ? Error toast message
         const loginFailed = () => {
-          toast.error(err.message, {
+          toast.error(`Error: ${err.message}`, {
             position: "top-center",
             draggable: false,
           });
@@ -199,7 +199,7 @@ const App = () => {
       .catch((err) => {
         // ? Error toast message
         const signUpFailed = () => {
-          toast.error(err.message, {
+          toast.error(`Error: ${err.message}`, {
             position: "top-center",
             draggable: false,
           });
