@@ -4,7 +4,7 @@
 
 .landing-page-container {
   display: flex;
-  justify-content: center;
+  // justify-content: center;
   flex-direction: column;
   align-items: center;
 
@@ -18,7 +18,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 250px;
+  height: 200px;
   width: 100vw;
 }
 
@@ -28,13 +28,13 @@
   text-align: center;
   letter-spacing: 0.2rem;
   font-size: 3rem;
-  margin: 2rem 5rem 0 5rem;
+  margin: 5rem 5rem 1rem 5rem;
 }
 
 .welcome-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  // align-items: center;
 
   width: 400px;
   height: 500px;
@@ -42,11 +42,14 @@
   font-family: $roboto-font-family;
 }
 
-.user-heading {
+.user-heading,
+.signup-heading {
   color: $main-powder-blue;
   font-weight: 280;
   letter-spacing: 1.5px;
   font-size: 2rem;
+
+  text-align: center;
 }
 
 .login-heading {
