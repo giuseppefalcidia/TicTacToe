@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LandingPage from "./Components/LandingPage";
 import GamePage from "./Components/GamePage";
+<<<<<<< HEAD
 import SignUp from "./Components/SignUp";
 
 import {
@@ -10,6 +11,9 @@ import {
   Routes,
   Link,
 } from "react-router-dom";
+=======
+import Dashboard from "./Components/Dashboard";
+>>>>>>> origin/jan
 
 import "./Styling/App.scss";
 
@@ -214,6 +218,7 @@ const App = () => {
   };
 
   return (
+<<<<<<< HEAD
     <Router>
       <div className="app-container">
         <main className="main-container">
@@ -252,6 +257,15 @@ const App = () => {
         </main>
       </div>
     </Router>
+=======
+    <div className="app-container">
+      <main className="main-container">
+        <LandingPage />
+        <Dashboard />
+        {/* <GamePage /> */}
+      </main>
+    </div>
+>>>>>>> origin/jan
   );
 };
 
