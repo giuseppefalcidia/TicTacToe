@@ -67,7 +67,7 @@ const LandingPage = () => {
       method: "POST",
       body: jsonLoginData,
       credentials: "include",
-      header: {
+      headers: {
         "Content-Type": "application/json",
       },
     };
@@ -149,9 +149,11 @@ const LandingPage = () => {
       <div className="welcome-container">
         {/* // ? Login container */}
         <div className="login-container">
-          <h2>Already a User?</h2>
-          <h3>Login</h3>
+          <h2 className="user-heading">Already a User?</h2>
+
           <form className="login-form" onSubmit={submitLoginData}>
+            <h3 className="login-heading">Login Here</h3>
+
             <label>Username</label>
             <input
               name="username"

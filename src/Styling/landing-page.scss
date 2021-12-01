@@ -9,6 +9,7 @@
   align-items: center;
 
   width: 100vw;
+  height: 100vh;
   background-color: $background;
 }
 
@@ -17,14 +18,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // background-color: $light-beige;
   height: 250px;
+  width: 100vw;
 }
 
 .app-heading {
-  // color: $dark-brown;
-  letter-spacing: 0.1rem;
+  color: $main-light-blue;
+  font-family: $main-font-font-family;
+  text-align: center;
+  letter-spacing: 0.2rem;
   font-size: 3rem;
+  margin: 2rem 5rem 0 5rem;
 }
 
 .welcome-container {
@@ -34,6 +38,62 @@
 
   width: 400px;
   height: 500px;
+
+  font-family: $roboto-font-family;
+}
+
+.user-heading {
+  color: $main-powder-blue;
+  font-weight: 280;
+  letter-spacing: 1.5px;
+  font-size: 2rem;
+}
+
+.login-heading {
+  color: $main-powder-blue;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+
+.login-form {
+  margin-top: 1rem;
+  // background: white;
+  padding: 2rem 3rem 3rem 3rem;
+  border-radius: 1rem;
+  border: solid 8px $main-dark-blue;
+
+  label {
+    color: whitesmoke;
+    margin-bottom: 0.5rem;
+  }
+
+  input {
+    margin-bottom: 1rem;
+
+    padding: 0.3rem 1rem 0.3rem 1rem;
+    border-radius: 0.1rem;
+
+    border: none;
+    outline: none;
+  }
+
+  button {
+    border: none;
+    outline: none;
+
+    padding: 0.3rem 1rem 0.3rem 1rem;
+    border-radius: 0.5rem;
+    background: $main-light-blue;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+  }
+}
+
+.login-container {
+  padding: 2rem 5rem 5rem 5rem;
+  // border: red solid 3px;
 }
 
 .login-container,
