@@ -17,8 +17,8 @@ const LandingPage = () => {
     _id: "",
     username: "",
     // todo - Placeholders for future state to store..
-    score: "",
-    rank: "",
+    // score: "",
+    // rank: "",
   });
 
   // Function to change the state variable corresponding to a form input the user tried to change
@@ -64,24 +64,34 @@ const LandingPage = () => {
     const jsonLoginData = JSON.stringify(loginData);
 
     const settings = {
-      method: "POST",
+      method: "GET",
       body: jsonLoginData,
+      credentials: "include",
       header: {
         "Content-Type": "application/json",
       },
     };
 
     // todo - set path
-    fetch("https://localhost:3001/login", settings)
+    fetch("https://localhost:3000/login", settings)
       .then((response) => {
         if (response.ok) {
           return response.json();
         } else {
-          throw new Error("Incorrect username or password");
+          switch (response.status) {
+            case 401:
+              return response.json().then((err) => {
+                throw new Error(err.message);
+              });
+            default:
+              throw new Error("unknown");
+          }
         }
       })
       .then((data) => {
-        setCurrentUser(loginData);
+        setCurrentUser(data);
+        setUsername("");
+        setPassword("");
         // if (data.token) {
         //  navigate('/dashboard')
         // }
