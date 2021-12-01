@@ -13,6 +13,10 @@ import {
 
 import "./Styling/App.scss";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
+
 const App = () => {
   // State hooks for login and sign up
   const [username, setUsername] = useState("");
@@ -154,18 +158,36 @@ const App = () => {
         }
       })
       .then((data) => {
+        const signupSuccessful = () => {
+          toast("Sign up successful!! Time to start playing! 👾  🎲", {
+            position: "top-center",
+            draggable: false,
+          });
+        };
+
         // !! Check back with currentUser
         console.log(data);
         // setCurrentUser(data);
+        signupSuccessful();
         setUsername("");
         setPassword("");
         setEmail("");
+
         // if (data.token) {
         //  navigate('/dashboard')
         // }
       })
       .catch((err) => {
-        alert(err.message);
+        // ! Error toast message
+        const signUpFailed = () => {
+          toast.error(err.message, {
+            position: "top-center",
+            draggable: false,
+          });
+        };
+
+        signUpFailed();
+        // alert(err.message);
         setUsername("");
         setPassword("");
         setEmail("");

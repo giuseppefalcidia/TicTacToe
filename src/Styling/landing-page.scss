@@ -2,7 +2,8 @@
 @import "./reset";
 @import "./mixins";
 
-.landing-page-container {
+.landing-page-container,
+.sign-in-page-container {
   display: flex;
   // justify-content: center;
   flex-direction: column;
@@ -31,7 +32,8 @@
   margin: 5rem 5rem 1rem 5rem;
 }
 
-.welcome-container {
+.welcome-container,
+.sign-in-form-container {
   display: flex;
   flex-direction: column;
   // align-items: center;
@@ -40,6 +42,40 @@
   height: 500px;
 
   font-family: $roboto-font-family;
+}
+
+.sign-up-form {
+  margin-top: 3rem;
+  padding: 2rem 3rem 3rem 3rem;
+  border-radius: 1rem;
+  border: solid 8px $main-dark-blue;
+
+  label {
+    color: whitesmoke;
+    margin-bottom: 0.5rem;
+  }
+
+  input {
+    margin-bottom: 1rem;
+
+    padding: 0.3rem 0.3rem 0.3rem 1rem;
+    border-radius: 0.1rem;
+
+    border: none;
+    outline: none;
+  }
+
+  button {
+    border: none;
+    outline: none;
+
+    margin-top: 1rem;
+    padding: 0.3rem 1rem 0.3rem 1rem;
+    border-radius: 0.5rem;
+    background: $main-light-blue;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+  }
 }
 
 .user-heading,
@@ -131,3 +167,12 @@
 // .sign-in-div {
 //   display: none;
 // }
+
+.signup-h3 {
+  font-size: 2rem;
+  color: $main-light-blue;
+  font-family: $main-font-font-family;
+  margin-top: 6rem;
+  width: 60%;
+  text-align: center;
+}
