@@ -1,6 +1,9 @@
-import React, {useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleNotch, faTimes  } from '@fortawesome/free-solid-svg-icons'
+
+import { useSocket } from "../contexts/SocketProvider";
+
 import "../Styling/game-page.scss";
 
 const GamePage = () => {
@@ -11,6 +14,20 @@ const GamePage = () => {
   const [mainPage,setMainPage] = useState(true)
   const [winnerPage, setWinnerPage] = useState(false)
   const [isCircle,setIsCircle] = useState(null) //! null after test
+  const socket = useSocket()
+  const [position,setPosition] = useState()
+
+  const recievePosition = useCallback(({position}) => {
+    setPosition(position)
+  }, [setPosition])
+
+  useEffect(() => {
+    if (socket == null) return
+
+    socket.on('receive-position', recievePosition)
+
+    return () => socket.off('receive-message')
+  }, [socket, recievePosition])
 
   const circle = <FontAwesomeIcon icon={faCircleNotch} />
   const ex = <FontAwesomeIcon icon={faTimes} />
@@ -158,15 +175,15 @@ const handleQuit = () => {
             <div id="showChange" style={ showChange ? {left: "0px"} : {left: "160px"}  }/>
           </div>
           <div id="gameBoard">
-            <div className="boxes" onClick={event => handleBoxClick(event)}></div>
-            <div className="boxes" onClick={event => handleBoxClick(event)}></div>
-            <div className="boxes" onClick={event => handleBoxClick(event)}></div>
-            <div className="boxes" onClick={event => handleBoxClick(event)}></div>
-            <div className="boxes" onClick={event => handleBoxClick(event)}></div>
-            <div className="boxes" onClick={event => handleBoxClick(event)}></div>
-            <div className="boxes" onClick={event => handleBoxClick(event)}></div>
-            <div className="boxes" onClick={event => handleBoxClick(event)}></div>
-            <div className="boxes" onClick={event => handleBoxClick(event)}></div>
+            <div className="boxes" data-boxPosition="1" onClick={event => handleBoxClick(event)}></div>
+            <div className="boxes" data-boxPosition="2" onClick={event => handleBoxClick(event)}></div>
+            <div className="boxes" data-boxPosition="3" onClick={event => handleBoxClick(event)}></div>
+            <div className="boxes" data-boxPosition="4" onClick={event => handleBoxClick(event)}></div>
+            <div className="boxes" data-boxPosition="5" onClick={event => handleBoxClick(event)}></div>
+            <div className="boxes" data-boxPosition="6" onClick={event => handleBoxClick(event)}></div>
+            <div className="boxes" data-boxPosition="7" onClick={event => handleBoxClick(event)}></div>
+            <div className="boxes" data-boxPosition="8" onClick={event => handleBoxClick(event)}></div>
+            <div className="boxes" data-boxPosition="9" onClick={event => handleBoxClick(event)}></div>
           </div>
         </div>
         {/* Winner Page */}

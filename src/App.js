@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import LandingPage from "./Components/LandingPage";
 import GamePage from "./Components/GamePage";
 import SignUp from "./Components/SignUp";
+import { SocketProvider } from "./contexts/SocketProvider";
 
 import {
   BrowserRouter as Router,
@@ -18,6 +19,8 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  // TODO Marc create a useState or similar with the ID to pass to the SocketProvider
+  const id = "test"
 
   // todo - Current User Object
   const [currentUser, setCurrentUser] = useState({
@@ -173,44 +176,46 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <div className="app-container">
-        <main className="main-container">
-          <Routes>
-            {/* <LandingPage /> */}
-            <Route
-              path="/"
-              exact
-              element={
-                <LandingPage
-                  submitLoginData={submitLoginData}
-                  updateData={updateData}
-                  username={username}
-                  password={password}
-                />
-              }
-            />
-            {/* SignUp page */}
-            <Route
-              path="/signup"
-              exact
-              element={
-                <SignUp
-                  addLoginData={addLoginData}
-                  updateData={updateData}
-                  username={username}
-                  password={password}
-                  email={email}
-                />
-              }
-            />
+    <SocketProvider id={id}>
+      <Router>
+        <div className="app-container">
+          <main className="main-container">
+            <Routes>
+              {/* <LandingPage /> */}
+              <Route
+                path="/"
+                exact
+                element={
+                  <LandingPage
+                    submitLoginData={submitLoginData}
+                    updateData={updateData}
+                    username={username}
+                    password={password}
+                  />
+                }
+              />
+              {/* SignUp page */}
+              <Route
+                path="/signup"
+                exact
+                element={
+                  <SignUp
+                    addLoginData={addLoginData}
+                    updateData={updateData}
+                    username={username}
+                    password={password}
+                    email={email}
+                  />
+                }
+              />
 
-            {/* <GamePage /> */}
-            <Route path="/gamepage" exact element={<GamePage />} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
+              {/* <GamePage /> */}
+              <Route path="/gamepage" exact element={<GamePage />} />
+            </Routes>
+          </main>
+        </div>
+      </Router>
+    </SocketProvider>
   );
 };
 
