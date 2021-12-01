@@ -10,7 +10,7 @@ function App() {
       <main className="main-container">
         <LandingPage />
 
-        {/* <GamePage /> */}
+        <GamePage />
       </main>
     </div>
   );
