@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import LandingPage from "./Components/LandingPage";
 import GamePage from "./Components/GamePage";
-<<<<<<< HEAD
 import SignUp from "./Components/SignUp";
+import Dashboard from "./Components/Dashboard";
 
 import {
   BrowserRouter as Router,
@@ -11,9 +11,6 @@ import {
   Routes,
   Link,
 } from "react-router-dom";
-=======
-import Dashboard from "./Components/Dashboard";
->>>>>>> origin/jan
 
 import "./Styling/App.scss";
 
@@ -180,7 +177,7 @@ const App = () => {
         }
       })
       .then((data) => {
-        // ? Successful tost message
+        // ? Successful toast message
         const signupSuccessful = () => {
           toast("Sign up successful!! Time to start playing! 👾  🎲", {
             position: "top-center",
@@ -188,7 +185,7 @@ const App = () => {
           });
         };
 
-        // !! Check back with currentUser
+        // todo Check back with currentUser
         console.log(data);
         // setCurrentUser(data);
         signupSuccessful();
@@ -218,7 +215,6 @@ const App = () => {
   };
 
   return (
-<<<<<<< HEAD
     <Router>
       <div className="app-container">
         <main className="main-container">
@@ -251,21 +247,13 @@ const App = () => {
               }
             />
 
-            {/* <GamePage /> */}
+            <Route path="/dashboard" exact element={<Dashboard />} />
+
             <Route path="/gamepage" exact element={<GamePage />} />
           </Routes>
         </main>
       </div>
     </Router>
-=======
-    <div className="app-container">
-      <main className="main-container">
-        <LandingPage />
-        <Dashboard />
-        {/* <GamePage /> */}
-      </main>
-    </div>
->>>>>>> origin/jan
   );
 };
 
