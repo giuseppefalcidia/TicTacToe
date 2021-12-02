@@ -27,7 +27,7 @@ const App = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   // TODO Marc create a useState or similar with the ID to pass to the SocketProvider
-  const id = "test"
+  const id = "test";
 
   // ! Adding manually as I could not get it to merge
   // let history = useNavigate();
@@ -94,11 +94,7 @@ const App = () => {
     };
 
     // todo - set path
-<<<<<<< HEAD
     fetch("http://localhost:3000/login", settings)
-=======
-    fetch("http://localhost:3001/login", settings)
->>>>>>> jan
       .then((response) => {
         if (response.ok) {
           console.log(response);
@@ -115,7 +111,7 @@ const App = () => {
         }
       })
       .then((data) => {
-        console.log("Successful login!")
+        console.log("Successful login!");
         // ? Successful tost message
         const loginSuccessful = () => {
           // toast("Login successful!! Time to start playing! 👾  🎲", {
@@ -123,9 +119,8 @@ const App = () => {
           //   draggable: false,
           // });
           // console.log("Hello world!")
-          window.location.replace("http://localhost:3000/dashboard")
+          window.location.replace("http://localhost:3000/dashboard");
         };
-        
 
         setCurrentUser(data);
         loginSuccessful();
@@ -180,11 +175,7 @@ const App = () => {
     };
 
     // todo - set path
-<<<<<<< HEAD
     fetch("http://localhost:3000/user", settings)
-=======
-    fetch("http://localhost:3001/user", settings)
->>>>>>> jan
       .then((response) => {
         if (response.ok) {
           console.log(response);
@@ -273,19 +264,12 @@ const App = () => {
                 }
               />
 
-            <Route
-              path="/dashboard"
-              exact
-              element={<Dashboard username={currentUser.username} />}
-            />
+              <Route
+                path="/dashboard"
+                exact
+                element={<Dashboard username={currentUser.username} />}
+              />
 
-<<<<<<< HEAD
-            <Route path="/gamepage" exact element={<GamePage />} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
-=======
               {/* Game page */}
               <Route path="/gamepage" exact element={<GamePage />} />
             </Routes>
@@ -294,7 +278,6 @@ const App = () => {
           </main>
         </div>
       </Router>
->>>>>>> 09813d5b1a670dfe75380a4cd10891cbc89883ae
     </SocketProvider>
   );
 };
