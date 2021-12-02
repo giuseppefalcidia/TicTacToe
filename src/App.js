@@ -280,9 +280,22 @@ const App = () => {
 
               {/* Game page */}
               <Route path="/gamepage" exact element={<GamePage />} />
+
+              {/*  Fallback path - directs user back to login page */}
+              <Route
+                path="*"
+                exact
+                element={
+                  <LandingPage
+                    submitLoginData={submitLoginData}
+                    updateData={updateData}
+                    username={username}
+                    password={password}
+                    currentUser={currentUser}
+                  />
+                }
+              />
             </Routes>
-            {/* Fallback path */}
-            {/* <Navigate to="/" exact /> */}
           </main>
         </div>
       </Router>
