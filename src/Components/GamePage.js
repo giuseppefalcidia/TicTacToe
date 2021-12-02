@@ -21,7 +21,6 @@ const GamePage = () => {
   const [startingPage,setStartingPage] = useState(true)
   const [mainPage,setMainPage] = useState(true)
   const [winnerPage, setWinnerPage] = useState(false)
-  const [isCircle,setIsCircle] = useState(null) //! null after test //! is this constant even needed?
   const socket = useSocket()
   const [position,setPosition] = useState(["","","","","","","","",""])
 
@@ -39,9 +38,8 @@ const GamePage = () => {
 
   const circle = <FontAwesomeIcon icon={faCircleNotch} />
   const ex = <FontAwesomeIcon icon={faTimes} />
-  // TODO
+  
   const boxesRef = useRef()
-  // const box1 = useRef()
   
  
 
@@ -59,7 +57,6 @@ const handleChoose = (event) => {
 }
 
 const handleBoxClick = (event) => {
-  // let boxes = Array.from(boxesRef.current.children)
   if (changeTurn === false) {
     const index = event.target.getAttribute("data-boxPosition")
     position[index] = "X"
@@ -69,9 +66,7 @@ const handleBoxClick = (event) => {
     event.currentTarget.style.pointerEvents = "none";
     setShowChange(false) 
     setChangeTurn(true)
-    setIsCircle(false)
   } else {
-    // event.currentTarget.innerHTML = circle;
     const index = event.target.getAttribute("data-boxPosition")
     position[index] = "O"
     setPosition(position)
@@ -79,7 +74,6 @@ const handleBoxClick = (event) => {
     event.currentTarget.pointerEvents = "none";
     setShowChange(true)
     setChangeTurn(false)
-    setIsCircle(true)
   }
   winningFunc();
   drawFunc();
@@ -158,10 +152,13 @@ let drawFunc = () => {
   }
 };
 
-// Reset Game
-const handleQuit = () => {
-  // TODO 
+
+
+const refresh = ()=>{
+  window.location.reload();  
 }
+
+
 
  
 
@@ -213,7 +210,7 @@ const handleQuit = () => {
         <div id="winner" style={ winnerPage ? {display: "block"} : {display: "none"}}>
           <h2 id="winnerName">{winnerName}</h2>
           <div id="button">
-            <button onClick={handleQuit()} id="quit">Play Again</button>
+            <button onClick={refresh}>Play Again</button>
           </div>
         </div>
       </div>
