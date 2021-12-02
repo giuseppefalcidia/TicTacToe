@@ -26,7 +26,7 @@ const App = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   // TODO Marc create a useState or similar with the ID to pass to the SocketProvider
-  const id = "test"
+  const id = "test";
 
   // ! Adding manually as I could not get it to merge
   // let history = useNavigate();
@@ -259,17 +259,19 @@ const App = () => {
                 }
               />
 
-            <Route
-              path="/dashboard"
-              exact
-              element={<Dashboard username={currentUser.username} />}
-            />
+              {/* Dashboard page */}
+              <Route
+                path="/dashboard"
+                exact
+                element={<Dashboard username={currentUser.username} />}
+              />
 
-            <Route path="/gamepage" exact element={<GamePage />} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
+              {/* Game page */}
+              <Route path="/gamepage" exact element={<GamePage />} />
+            </Routes>
+          </main>
+        </div>
+      </Router>
     </SocketProvider>
   );
 };
