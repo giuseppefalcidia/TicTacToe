@@ -3,6 +3,7 @@ import LandingPage from "./Components/LandingPage";
 import GamePage from "./Components/GamePage";
 import SignUp from "./Components/SignUp";
 import Dashboard from "./Components/Dashboard";
+import { SocketProvider } from "./contexts/SocketProvider";
 
 import {
   BrowserRouter as Router,
@@ -24,6 +25,8 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  // TODO Marc create a useState or similar with the ID to pass to the SocketProvider
+  const id = "test"
 
   // ! Adding manually as I could not get it to merge
   // let history = useNavigate();
@@ -223,37 +226,38 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <div className="app-container">
-        <main className="main-container">
-          <Routes>
-            {/* <LandingPage /> */}
-            <Route
-              path="/"
-              exact
-              element={
-                <LandingPage
-                  submitLoginData={submitLoginData}
-                  updateData={updateData}
-                  username={username}
-                  password={password}
-                />
-              }
-            />
-            {/* SignUp page */}
-            <Route
-              path="/signup"
-              exact
-              element={
-                <SignUp
-                  addLoginData={addLoginData}
-                  updateData={updateData}
-                  username={username}
-                  password={password}
-                  email={email}
-                />
-              }
-            />
+    <SocketProvider id={id}>
+      <Router>
+        <div className="app-container">
+          <main className="main-container">
+            <Routes>
+              {/* <LandingPage /> */}
+              <Route
+                path="/"
+                exact
+                element={
+                  <LandingPage
+                    submitLoginData={submitLoginData}
+                    updateData={updateData}
+                    username={username}
+                    password={password}
+                  />
+                }
+              />
+              {/* SignUp page */}
+              <Route
+                path="/signup"
+                exact
+                element={
+                  <SignUp
+                    addLoginData={addLoginData}
+                    updateData={updateData}
+                    username={username}
+                    password={password}
+                    email={email}
+                  />
+                }
+              />
 
             <Route
               path="/dashboard"
@@ -266,6 +270,7 @@ const App = () => {
         </main>
       </div>
     </Router>
+    </SocketProvider>
   );
 };
 
