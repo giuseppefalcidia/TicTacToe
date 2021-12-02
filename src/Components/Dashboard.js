@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from "react";
+
+// AOS
 import Aos from "aos";
-// import { Link } from "react-router-dom";
+import "aos/dist/aos.css";
 
 const Dashboard = (props) => {
-    const [editUser, setEditUser] = useState(false);
+  // Edit User hooks
+  const [editUser, setEditUser] = useState(false);
 
-    const handleEditUser = () => {
-        setEditUser((p) => !p)
-    }
+  // Edit user functionality
+  const handleEditUser = () => {
+    setEditUser((p) => !p);
+  };
 
-    useEffect(() => {
-        Aos.init({ duration: 1000, once: true });
-      }, []);
-    
-    return(
-        <div className="dashboard-container">
+  // AOS functionality
+  useEffect(() => {
+    Aos.init({ duration: 1000, once: true });
+  }, []);
+
+  return (
+    <div className="dashboard-container">
       <h1
         className="dashboard-header"
         // AOS
@@ -46,7 +51,16 @@ const Dashboard = (props) => {
             <button className="confirm-button">confirm</button>
           </form>
         </div>
-      )
-}
+      )}
+
+      <button
+        className="start-game-button" // AOS
+        data-aos="fade-left"
+      >
+        Start Game
+      </button>
+    </div>
+  );
+};
 
 export default Dashboard;
