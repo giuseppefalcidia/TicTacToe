@@ -93,7 +93,7 @@ const App = () => {
     };
 
     // todo - set path
-    fetch("http://localhost:5000/login", settings)
+    fetch("http://localhost:3000/login", settings)
       .then((response) => {
         if (response.ok) {
           console.log(response);
@@ -171,7 +171,7 @@ const App = () => {
     };
 
     // todo - set path
-    fetch("http://localhost:5000/user", settings)
+    fetch("http://localhost:3000/user", settings)
       .then((response) => {
         if (response.ok) {
           console.log(response);
