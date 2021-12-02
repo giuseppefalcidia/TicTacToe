@@ -55,6 +55,7 @@ const handleBoxClick = (event) => {
   if (changeTurn === false) {
     const index = event.target.getAttribute("data-boxPosition")
     position[index] = "X"
+    setPosition(position)
     console.log(typeof position)
     event.currentTarget.id = "X";
     event.currentTarget.style.pointerEvents = "none";
@@ -65,6 +66,7 @@ const handleBoxClick = (event) => {
     // event.currentTarget.innerHTML = circle;
     const index = event.target.getAttribute("data-boxPosition")
     position[index] = "O"
+    setPosition(position)
     event.currentTarget.id = "O";
     event.currentTarget.pointerEvents = "none";
     setShowChange(true)
