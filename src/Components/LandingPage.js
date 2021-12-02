@@ -5,25 +5,25 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 
 const LandingPage = (props) => {
-    // AOS functionality
-    useEffect(() => {
-      Aos.init({ duration: 1000, once: true });
-    }, []);
+  // AOS functionality
+  useEffect(() => {
+    Aos.init({ duration: 1000, once: true });
+  }, []);
 
   const RedirectToDashboard = async (event) => {
-    console.log("Test")
-    console.log(event)
+    console.log("Test");
+    console.log(event);
     // let navigate = useNavigate();
     event.preventDefault();
-    await props.submitLoginData(event.target)
-    
+    await props.submitLoginData(event.target);
+
     if (props.currentUser.username) {
-      console.log("!", event.target)
-      console.log("?", props.currentUser)
+      console.log("!", event.target);
+      console.log("?", props.currentUser);
       // window.location.replace("http://localhost:3000/dashboard")
       // navigate("/dashboard", {replace: true})
     }
-  }
+  };
 
   return (
     <div

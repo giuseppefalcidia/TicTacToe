@@ -140,3 +140,40 @@
   font-size: 1.3rem;
   text-align: center;
 }
+
+// ? Small phones
+
+@include smallPhones {
+  .login-form {
+    width: 200px;
+    padding: 1rem;
+
+    input {
+      width: 80%;
+    }
+  }
+}
+
+// ? Tablet
+
+@include tablet {
+  .app-heading {
+    font-size: 3rem;
+  }
+
+  .user-heading,
+  .signup-heading {
+    font-size: 2rem;
+    width: 300px;
+    margin: 1rem;
+  }
+}
+
+// ? Desktop
+
+@include desktop {
+  .app-heading {
+    letter-spacing: 3px;
+    line-height: 4rem;
+  }
+}
