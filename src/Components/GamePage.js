@@ -19,7 +19,7 @@ const GamePage = () => {
   const [changeTurn,setChangeTurn] = useState(null)
   const [showChange,setShowChange] = useState(false)
   const [startingPage,setStartingPage] = useState(true)
-  const [mainPage,setMainPage] = useState(true)
+  const [mainPage,setMainPage] = useState(false)
   const [winnerPage, setWinnerPage] = useState(false)
   const socket = useSocket()
   const [position,setPosition] = useState(["","","","","","","","",""])
