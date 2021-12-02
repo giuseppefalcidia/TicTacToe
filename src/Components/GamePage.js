@@ -168,7 +168,8 @@ const GamePage = () => {
   return (
     <>
       <title>Tic Tac Toe</title>
-      <link rel="stylesheet" href="css/style.css" />
+      {/* // ! Commenting out as we are already importing with Sass */}
+      {/* <link rel="stylesheet" href="css/style.css" /> */}
       <div id="container">
         {/* Starting Page */}
         <div

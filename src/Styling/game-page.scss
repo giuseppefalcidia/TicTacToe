@@ -29,7 +29,7 @@ body {
 #startingPage {
   margin-top: 8rem;
   height: 220px;
-  width: 400px;
+  width: 300px;
   text-align: center;
 }
 
@@ -187,4 +187,34 @@ body {
 
 .ex-element {
   color: $fuschia;
+}
+
+// ? Small phones
+
+@include smallPhones {
+  #startingPage {
+    width: 250px;
+  }
+
+  // #gameBoard {
+  //   width: 80vw;
+  // }
+
+  // #mainPage {
+  //   width: 80vw;
+  //   background-color: red;
+  // }
+
+  // .boxes {
+  //   width: 3rem;
+  //   height: 3rem;
+  // }
+}
+
+// ? Tablet
+
+@include tablet {
+  #startingPage {
+    width: 400px;
+  }
 }
