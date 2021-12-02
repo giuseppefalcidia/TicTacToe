@@ -9,7 +9,7 @@ import "../Styling/game-page.scss";
 const GamePage = () => {
   const [winnerName,setWinnerName] = useState("")
   const [changeTurn,setChangeTurn] = useState(null)
-  const [showChange,setShowChange] = useState(null)
+  const [showChange,setShowChange] = useState(false)
   const [startingPage,setStartingPage] = useState(true)
   const [mainPage,setMainPage] = useState(true)
   const [winnerPage, setWinnerPage] = useState(false)
@@ -58,7 +58,7 @@ const handleBoxClick = (event) => {
     console.log(typeof position)
     event.currentTarget.id = "X";
     event.currentTarget.style.pointerEvents = "none";
-    setShowChange(true) 
+    setShowChange(false) 
     setChangeTurn(true)
     setIsCircle(false)
   } else {
@@ -67,7 +67,7 @@ const handleBoxClick = (event) => {
     position[index] = "O"
     event.currentTarget.id = "O";
     event.currentTarget.pointerEvents = "none";
-    setShowChange(false)
+    setShowChange(true)
     setChangeTurn(false)
     setIsCircle(true)
   }
