@@ -46,16 +46,7 @@ const Dashboard = (props) => {
             <button className="confirm-button">confirm</button>
           </form>
         </div>
-      )}
-
-      <button
-        className="start-game-button" // AOS
-        data-aos="fade-left"
-      >
-        Start Game
-      </button>
-    </div>
-  );
-};
+      )
+}
 
 export default Dashboard;

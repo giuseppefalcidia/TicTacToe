@@ -312,7 +312,6 @@ const App = () => {
               } 
             />
             {/* <GamePage /> */}
-
             <Route path="/gamepage" exact element={<GamePage />} />
           </Routes>
         </main>
