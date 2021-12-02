@@ -9,6 +9,8 @@
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "i": "^0.3.7",
+    "npm": "^8.1.4",
     "aos": "^2.3.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -16,6 +18,7 @@
     "react-scripts": "4.0.3",
     "react-toastify": "^8.1.0",
     "sass": "^1.44.0",
+    "sass-loader": "^10.2.0",
     "socket.io-client": "^4.4.0",
     "web-vitals": "^1.1.2"
   },

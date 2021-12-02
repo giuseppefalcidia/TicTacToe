@@ -26,7 +26,7 @@ const App = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   // TODO Marc create a useState or similar with the ID to pass to the SocketProvider
-  const id = "test";
+  const id = "test"
 
   // ! Adding manually as I could not get it to merge
   // let history = useNavigate();
@@ -67,7 +67,7 @@ const App = () => {
   // todo - POST and FETCH request for login - connect to database and setup correct path
   // Submit login data function - updated onChange..
   const submitLoginData = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
 
     // ! Should I split into different variables for login and sign up
     // Collected Data from update data...
@@ -93,7 +93,11 @@ const App = () => {
     };
 
     // todo - set path
+<<<<<<< HEAD
     fetch("http://localhost:3000/login", settings)
+=======
+    fetch("http://localhost:3001/login", settings)
+>>>>>>> jan
       .then((response) => {
         if (response.ok) {
           console.log(response);
@@ -110,16 +114,20 @@ const App = () => {
         }
       })
       .then((data) => {
+        console.log("Successful login!")
         // ? Successful tost message
         const loginSuccessful = () => {
-          toast("Login successful!! Time to start playing! 👾  🎲", {
-            position: "top-center",
-            draggable: false,
-          });
+          // toast("Login successful!! Time to start playing! 👾  🎲", {
+          //   position: "top-center",
+          //   draggable: false,
+          // });
+          // console.log("Hello world!")
+          window.location.replace("http://localhost:3000/dashboard")
         };
+        
 
-        loginSuccessful();
         setCurrentUser(data);
+        loginSuccessful();
         setUsername("");
         setPassword("");
         // if (data.token) {
@@ -171,7 +179,11 @@ const App = () => {
     };
 
     // todo - set path
+<<<<<<< HEAD
     fetch("http://localhost:3000/user", settings)
+=======
+    fetch("http://localhost:3001/user", settings)
+>>>>>>> jan
       .then((response) => {
         if (response.ok) {
           console.log(response);
@@ -241,6 +253,7 @@ const App = () => {
                     updateData={updateData}
                     username={username}
                     password={password}
+                    currentUser={currentUser}
                   />
                 }
               />
@@ -259,19 +272,17 @@ const App = () => {
                 }
               />
 
-              {/* Dashboard page */}
-              <Route
-                path="/dashboard"
-                exact
-                element={<Dashboard username={currentUser.username} />}
-              />
+            <Route
+              path="/dashboard"
+              exact
+              element={<Dashboard username={currentUser.username} />}
+            />
 
-              {/* Game page */}
-              <Route path="/gamepage" exact element={<GamePage />} />
-            </Routes>
-          </main>
-        </div>
-      </Router>
+            <Route path="/gamepage" exact element={<GamePage />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
     </SocketProvider>
   );
 };
