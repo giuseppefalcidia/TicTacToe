@@ -25,19 +25,15 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-<<<<<<< HEAD
-  const [newPassword, setNewPassword] = useState("");
-  // let navigate = useNavigate();
-=======
   // TODO Marc create a useState or similar with the ID to pass to the SocketProvider
-  const id = "test";
->>>>>>> 73a69da053f7ead5fbd9b4606f4d102a176ed1f2
+  const id = "test"
 
+  // ! Adding manually as I could not get it to merge
+  // let history = useNavigate();
+  // ! - How to implement?
   // const redirectToDashboard = () => {
-  //   if (currentUser.username.length > 0) {
-  //     navigate("/dashboard", {replace: true})
-  //   }
-  // }
+  //   history.push("/dashboard");
+  // };
 
   // todo - Current User Object
   const [currentUser, setCurrentUser] = useState({
@@ -61,9 +57,6 @@ const App = () => {
       case "email":
         setEmail(event.target.value);
         break;
-      case "newpassword":
-        setNewPassword(event.target.value);
-        break;
 
       default:
         break;
@@ -74,7 +67,7 @@ const App = () => {
   // todo - POST and FETCH request for login - connect to database and setup correct path
   // Submit login data function - updated onChange..
   const submitLoginData = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
 
     // ! Should I split into different variables for login and sign up
     // Collected Data from update data...
@@ -100,7 +93,7 @@ const App = () => {
     };
 
     // todo - set path
-    fetch("http://localhost:3000/login", settings)
+    fetch("http://localhost:3001/login", settings)
       .then((response) => {
         if (response.ok) {
           console.log(response);
@@ -117,18 +110,25 @@ const App = () => {
         }
       })
       .then((data) => {
+        console.log("Successful login!")
         // ? Successful tost message
         const loginSuccessful = () => {
-          toast("Login successful!! Time to start playing! 👾  🎲", {
-            position: "top-center",
-            draggable: false,
-          });
+          // toast("Login successful!! Time to start playing! 👾  🎲", {
+          //   position: "top-center",
+          //   draggable: false,
+          // });
+          // console.log("Hello world!")
+          window.location.replace("http://localhost:3000/dashboard")
         };
+        
 
-        loginSuccessful();
         setCurrentUser(data);
+        loginSuccessful();
         setUsername("");
         setPassword("");
+        // if (data.token) {
+        //  navigate('/dashboard')
+        // }
       })
       .catch((err) => {
         // ? Error toast message
@@ -175,7 +175,7 @@ const App = () => {
     };
 
     // todo - set path
-    fetch("http://localhost:3000/user", settings)
+    fetch("http://localhost:3001/user", settings)
       .then((response) => {
         if (response.ok) {
           console.log(response);
@@ -229,50 +229,8 @@ const App = () => {
       });
   };
 
-  const changePassword = (event) => {
-    event.preventDefault();
-
-    const changePassword = {
-        // userId: props.currentUser._id,
-        newPassword: newPassword
-    }
-
-    const jsonPasswordData = JSON.stringify(changePassword);
-
-    const settings = {
-        method: "PATCH",
-        body: jsonPasswordData,
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }
-
-    fetch(`http://localhost:3000/user/${currentUser._id}`, settings)
-    .then(response => {
-        if (response.ok) {
-            return response.json()
-        } else {
-            switch(response.status) {
-                case 404: 
-                    return response.json().then((err) => {
-                    throw new Error(err.message);
-                  });
-                default:
-                    throw new Error("unknown");
-            }
-        }
-    })
-    .then(data => {
-        console.log(data);
-        setNewPassword("");
-    })
-    .catch(err => {
-        alert(err.message);
-    })
-}
-
   return (
-    <SocketProvider id={"test"}>
+    <SocketProvider id={id}>
       <Router>
         <div className="app-container">
           <main className="main-container">
@@ -305,40 +263,18 @@ const App = () => {
                   />
                 }
               />
-<<<<<<< HEAD
-            <Route 
-              path="/dashboard"  
-              exact 
-              element={
-                <Dashboard 
-                  currentUser={currentUser}
-                  changePassword={changePassword}
-                  updateData={updateData}
-                />
-              } 
+
+            <Route
+              path="/dashboard"
+              exact
+              element={<Dashboard username={currentUser.username} />}
             />
-            {/* <GamePage /> */}
+
             <Route path="/gamepage" exact element={<GamePage />} />
           </Routes>
         </main>
       </div>
     </Router>
-=======
-
-              {/* Dashboard page */}
-              <Route
-                path="/dashboard"
-                exact
-                element={<Dashboard username={currentUser.username} />}
-              />
-
-              {/* Game page */}
-              <Route path="/gamepage" exact element={<GamePage />} />
-            </Routes>
-          </main>
-        </div>
-      </Router>
->>>>>>> 73a69da053f7ead5fbd9b4606f4d102a176ed1f2
     </SocketProvider>
   );
 };

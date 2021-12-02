@@ -17,11 +17,10 @@ export function SocketProvider({ id, children }) {
 
   useEffect(() => {
     const newSocket = io(
-      'http://localhost:5000',
+      'http://localhost:3001',
       // { query: { id } } //TODO readd it later when we work with the id
     )
     setSocket(newSocket)
-
     // this avoids having multiple socket connection opens whenever the useEffect runs for a second time that would duplicate the info
     return () => newSocket.close()
   }, [id])

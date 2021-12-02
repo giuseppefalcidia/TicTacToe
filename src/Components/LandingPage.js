@@ -11,11 +11,17 @@ const LandingPage = (props) => {
     }, []);
 
   const RedirectToDashboard = async (event) => {
-    let navigate = useNavigate();
+    console.log("Test")
+    console.log(event)
+    // let navigate = useNavigate();
     event.preventDefault();
+    await props.submitLoginData(event.target)
+    
     if (props.currentUser.username) {
-      await props.submitLoginData(event.target)
-      navigate("/dashboard", {replace: true})
+      console.log("!", event.target)
+      console.log("?", props.currentUser)
+      // window.location.replace("http://localhost:3000/dashboard")
+      // navigate("/dashboard", {replace: true})
     }
   }
 
@@ -36,7 +42,7 @@ const LandingPage = (props) => {
         <div className="login-container">
           <h2 className="user-heading">Already a User?</h2>
 
-          <form className="login-form" onSubmit={props.submitLoginData}>
+          <form className="login-form" onSubmit={RedirectToDashboard}>
             <h3 className="login-heading">Login Here</h3>
 
             <label>Username</label>
@@ -53,7 +59,7 @@ const LandingPage = (props) => {
               value={props.password}
             ></input>
 
-            <button onClick={RedirectToDashboard}>Login to play!</button>
+            <button>Login to play!</button>
           </form>
         </div>
 
