@@ -27,7 +27,7 @@ body {
 // }
 
 #startingPage {
-  margin-top: 5rem;
+  margin-top: 8rem;
   height: 220px;
   width: 400px;
   text-align: center;
@@ -170,9 +170,19 @@ body {
   display: grid;
   place-items: center;
   cursor: pointer;
+
+  font-size: 3rem;
 }
 
 .boxes i {
   font-size: 60px;
   color: $main-light-blue;
+}
+
+.circle-element {
+  color: $main-light-blue;
+}
+
+.ex-element {
+  color: $fuschia;
 }
