@@ -94,11 +94,7 @@ const App = () => {
     };
 
     // todo - set path
-<<<<<<< HEAD
-    fetch("http://localhost:3000/login", settings)
-=======
     fetch("http://localhost:3001/login", settings)
->>>>>>> 456a21e1adfd7bfe589aebdedbd217a58c77431d
       .then((response) => {
         if (response.ok) {
           console.log(response);
@@ -118,12 +114,13 @@ const App = () => {
         console.log("Successful login!");
         // ? Successful tost message
         const loginSuccessful = () => {
-          // toast("Login successful!! Time to start playing! 👾  🎲", {
-          //   position: "top-center",
-          //   draggable: false,
-          // });
-          // console.log("Hello world!")
-          window.location.replace("http://localhost:3000/dashboard");
+          toast("Login successful!! Taking you to the game! 👾  🎲 ", {
+            position: "top-center",
+            autoClose: 2000,
+            draggable: false,
+            onClose: () =>
+              window.location.replace("http://localhost:3000/dashboard"),
+          });
         };
 
         setCurrentUser(data);
@@ -140,6 +137,7 @@ const App = () => {
           toast.error(`Error: ${err.message}`, {
             position: "top-center",
             draggable: false,
+            autoClose: 2000,
           });
         };
 
@@ -179,7 +177,7 @@ const App = () => {
     };
 
     // todo - set path
-    fetch("http://localhost:3000/user", settings)
+    fetch("http://localhost:3001/user", settings)
       .then((response) => {
         if (response.ok) {
           console.log(response);
@@ -198,10 +196,15 @@ const App = () => {
       .then((data) => {
         // ? Successful toast message
         const signupSuccessful = () => {
-          toast("Sign up successful!! Time to start playing! 👾  🎲", {
-            position: "top-center",
-            draggable: false,
-          });
+          toast(
+            "Sign up successful!! Time to login and to start playing! 👾  🎲 ",
+            {
+              position: "top-center",
+              autoClose: 2000,
+              draggable: false,
+              onClose: () => window.location.replace("http://localhost:3000/"),
+            }
+          );
         };
 
         // todo Check back with currentUser
@@ -222,6 +225,7 @@ const App = () => {
           toast.error(`Error: ${err.message}`, {
             position: "top-center",
             draggable: false,
+            autoClose: 2000,
           });
         };
 
