@@ -11,10 +11,6 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 
 const GamePage = () => {
-  // AOS functionality
-  useEffect(() => {
-    Aos.init({ duration: 1000, once: true });
-  }, []);
   const [winnerName, setWinnerName] = useState("");
   const [changeTurn, setChangeTurn] = useState(null);
   const [showChange, setShowChange] = useState(false);
@@ -33,6 +29,11 @@ const GamePage = () => {
     "",
     "",
   ]);
+
+  // AOS functionality
+  useEffect(() => {
+    Aos.init({ duration: 1000, once: true });
+  }, []);
 
   const recievePosition = useCallback(
     ({ position }) => {
