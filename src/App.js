@@ -94,7 +94,11 @@ const App = () => {
     };
 
     // todo - set path
+<<<<<<< HEAD
     fetch("http://localhost:3000/login", settings)
+=======
+    fetch("http://localhost:3001/login", settings)
+>>>>>>> 456a21e1adfd7bfe589aebdedbd217a58c77431d
       .then((response) => {
         if (response.ok) {
           console.log(response);
@@ -274,7 +278,7 @@ const App = () => {
               <Route path="/gamepage" exact element={<GamePage />} />
             </Routes>
             {/* Fallback path */}
-            <Navigate to="/" exact />
+            {/* <Navigate to="/" exact /> */}
           </main>
         </div>
       </Router>
