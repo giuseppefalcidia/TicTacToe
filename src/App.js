@@ -13,6 +13,10 @@ import {
 
 import "./Styling/App.scss";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
+
 const App = () => {
   // State hooks for login and sign up
   const [username, setUsername] = useState("");
@@ -26,6 +30,13 @@ const App = () => {
   //     navigate("/dashboard", {replace: true})
   //   }
   // }
+
+  // ! Adding manually as I could not get it to merge
+  // let history = useNavigate();
+  // ! - How to implement?
+  // const redirectToDashboard = () => {
+  //   history.push("/dashboard");
+  // };
 
   // todo - Current User Object
   const [currentUser, setCurrentUser] = useState({
@@ -105,12 +116,30 @@ const App = () => {
         }
       })
       .then((data) => {
+        // ? Successful tost message
+        const loginSuccessful = () => {
+          toast("Login successful!! Time to start playing! 👾  🎲", {
+            position: "top-center",
+            draggable: false,
+          });
+        };
+
+        loginSuccessful();
         setCurrentUser(data);
         setUsername("");
         setPassword("");
       })
       .catch((err) => {
-        alert(err.message);
+        // ? Error toast message
+        const loginFailed = () => {
+          toast.error(`Error: ${err.message}`, {
+            position: "top-center",
+            draggable: false,
+          });
+        };
+
+        loginFailed();
+        // alert(err.message);
         setUsername("");
         setPassword("");
       });
@@ -162,18 +191,37 @@ const App = () => {
         }
       })
       .then((data) => {
-        // !! Check back with currentUser
+        // ? Successful toast message
+        const signupSuccessful = () => {
+          toast("Sign up successful!! Time to start playing! 👾  🎲", {
+            position: "top-center",
+            draggable: false,
+          });
+        };
+
+        // todo Check back with currentUser
         console.log(data);
         // setCurrentUser(data);
+        signupSuccessful();
         setUsername("");
         setPassword("");
         setEmail("");
+
         // if (data.token) {
         //  navigate('/dashboard')
         // }
       })
       .catch((err) => {
-        alert(err.message);
+        // ? Error toast message
+        const signUpFailed = () => {
+          toast.error(`Error: ${err.message}`, {
+            position: "top-center",
+            draggable: false,
+          });
+        };
+
+        signUpFailed();
+        // alert(err.message);
         setUsername("");
         setPassword("");
         setEmail("");

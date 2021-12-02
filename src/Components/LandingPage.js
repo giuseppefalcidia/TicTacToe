@@ -210,7 +210,11 @@ const LandingPage = (props) => {
   //   };
 
   return (
-    <div className="landing-page-container">
+    <div
+      className="landing-page-container"
+      // AOS
+      data-aos="fade-down"
+    >
       {/* Welcome container containing login and sign up options */}
       <header className="app-header">
         <h1 className="app-heading">

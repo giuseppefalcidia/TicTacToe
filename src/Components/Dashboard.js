@@ -35,7 +35,7 @@ const Dashboard = (props) => {
             }
             <button onClick={startGame}>Start Game</button>
         </div>
-    )
+      )
 }
 
 export default Dashboard;

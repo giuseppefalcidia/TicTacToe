@@ -2,6 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const SignUp = (props) => {
+  // AOS functionality
+  useEffect(() => {
+    Aos.init({ duration: 1000, once: true });
+  }, []);
+
   return (
     <div>
       {" "}
