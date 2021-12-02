@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleNotch, faTimes  } from '@fortawesome/free-solid-svg-icons'
 
@@ -13,9 +13,9 @@ const GamePage = () => {
   const [startingPage,setStartingPage] = useState(true)
   const [mainPage,setMainPage] = useState(true)
   const [winnerPage, setWinnerPage] = useState(false)
-  const [isCircle,setIsCircle] = useState(null) //! null after test
+  const [isCircle,setIsCircle] = useState(null) //! null after test //! is this constant even needed?
   const socket = useSocket()
-  const [position,setPosition] = useState()
+  const [position,setPosition] = useState(["","","","","","","","",""])
 
   const recievePosition = useCallback(({position}) => {
     setPosition(position)
@@ -32,7 +32,10 @@ const GamePage = () => {
   const circle = <FontAwesomeIcon icon={faCircleNotch} />
   const ex = <FontAwesomeIcon icon={faTimes} />
   // TODO
-  let boxes = document.querySelectorAll(".boxes");
+  const boxesRef = useRef()
+  // const box1 = useRef()
+  
+ 
 
 
 const handleChoose = (event) => {
@@ -48,11 +51,11 @@ const handleChoose = (event) => {
 }
 
 const handleBoxClick = (event) => {
-  console.log(event)
-  const element = <FontAwesomeIcon icon={faCircleNotch} />
+  // let boxes = Array.from(boxesRef.current.children)
   if (changeTurn === false) {
-    console.log(ex)
-    // event.currentTarget.innerHTML = ;
+    const index = event.target.getAttribute("data-boxPosition")
+    position[index] = "X"
+    console.log(typeof position)
     event.currentTarget.id = "X";
     event.currentTarget.style.pointerEvents = "none";
     setShowChange(true) 
@@ -60,6 +63,8 @@ const handleBoxClick = (event) => {
     setIsCircle(false)
   } else {
     // event.currentTarget.innerHTML = circle;
+    const index = event.target.getAttribute("data-boxPosition")
+    position[index] = "O"
     event.currentTarget.id = "O";
     event.currentTarget.pointerEvents = "none";
     setShowChange(false)
@@ -83,6 +88,8 @@ let winningCombinations = [
 ];
 
 let winningFunc = () => {
+  let boxes = boxesRef.current.children
+  
   for (let a = 0; a <= 7; a++) {
     let b = winningCombinations[a];
 
@@ -122,6 +129,7 @@ let winningFunc = () => {
 
 // Match Draw Function
 let drawFunc = () => {
+  let boxes = boxesRef.current.children
   if (
     boxes[0].id !== "" &&
     boxes[1].id !== "" &&
@@ -145,11 +153,10 @@ const handleQuit = () => {
   // TODO 
 }
 
+ 
 
   return (
     <>
-      <meta charSet="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Tic Tac Toe</title>
       <link rel="stylesheet" href="css/style.css" />
       <div id="container">
@@ -174,16 +181,16 @@ const handleQuit = () => {
             <button id="O_Turn">O Turn</button>
             <div id="showChange" style={ showChange ? {left: "0px"} : {left: "160px"}  }/>
           </div>
-          <div id="gameBoard">
-            <div className="boxes" data-boxPosition="1" onClick={event => handleBoxClick(event)}></div>
-            <div className="boxes" data-boxPosition="2" onClick={event => handleBoxClick(event)}></div>
-            <div className="boxes" data-boxPosition="3" onClick={event => handleBoxClick(event)}></div>
-            <div className="boxes" data-boxPosition="4" onClick={event => handleBoxClick(event)}></div>
-            <div className="boxes" data-boxPosition="5" onClick={event => handleBoxClick(event)}></div>
-            <div className="boxes" data-boxPosition="6" onClick={event => handleBoxClick(event)}></div>
-            <div className="boxes" data-boxPosition="7" onClick={event => handleBoxClick(event)}></div>
-            <div className="boxes" data-boxPosition="8" onClick={event => handleBoxClick(event)}></div>
-            <div className="boxes" data-boxPosition="9" onClick={event => handleBoxClick(event)}></div>
+          <div id="gameBoard" ref={boxesRef}>
+            <div className="boxes" data-boxPosition="0" onClick={event => handleBoxClick(event)}>{position[0] !== "" ? (position[0] === "X" ? ex : circle) : null}</div>
+            <div className="boxes" data-boxPosition="1" onClick={event => handleBoxClick(event)}>{position[1] !== "" ? (position[1] === "X" ? ex : circle) : null}</div>
+            <div className="boxes" data-boxPosition="2" onClick={event => handleBoxClick(event)}>{position[2] !== "" ? (position[2] === "X" ? ex : circle) : null}</div>
+            <div className="boxes" data-boxPosition="3" onClick={event => handleBoxClick(event)}>{position[3] !== "" ? (position[3] === "X" ? ex : circle) : null}</div>
+            <div className="boxes" data-boxPosition="4" onClick={event => handleBoxClick(event)}>{position[4] !== "" ? (position[4] === "X" ? ex : circle) : null}</div>
+            <div className="boxes" data-boxPosition="5" onClick={event => handleBoxClick(event)}>{position[5] !== "" ? (position[5] === "X" ? ex : circle) : null}</div>
+            <div className="boxes" data-boxPosition="6" onClick={event => handleBoxClick(event)}>{position[6] !== "" ? (position[6] === "X" ? ex : circle) : null}</div>
+            <div className="boxes" data-boxPosition="7" onClick={event => handleBoxClick(event)}>{position[7] !== "" ? (position[7] === "X" ? ex : circle) : null}</div>
+            <div className="boxes" data-boxPosition="8" onClick={event => handleBoxClick(event)}>{position[8] !== "" ? (position[8] === "X" ? ex : circle) : null}</div>
           </div>
         </div>
         {/* Winner Page */}
