@@ -54,7 +54,7 @@ const LandingPage = (props) => {
             ></input>
 
         {/* // !! Will navigate to sign up section */}
-        <div>Or are you new here?</div>
+        {/* <div>Or are you new here?</div>
         <Link to="/signup">
           <button
             // onClick={displaySignIn}
@@ -63,7 +63,7 @@ const LandingPage = (props) => {
           >
             Sign Up
           </button>
-        </Link>
+        </Link> */}
             <button onClick={RedirectToDashboard}>Login to play!</button>
           </form>
         </div>
