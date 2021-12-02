@@ -281,11 +281,15 @@ const GamePage = () => {
         {/* Winner Page */}
         <div
           id="winner"
-          style={winnerPage ? { display: "block" } : { display: "none" }}
+          // !!! Display FLEX  on #winner to allow responsive styling
+          style={winnerPage ? { display: "flex" } : { display: "none" }}
         >
           <h2 id="winnerName">{winnerName}</h2>
-          <div id="button">
-            <button onClick={refresh}>Play Again</button>
+          {/* // !!! Added play-again-button class to keep style */}
+          <div className="play-again-button">
+            <button className="play-again-button" onClick={refresh}>
+              Play Again
+            </button>
           </div>
         </div>
       </div>
