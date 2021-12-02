@@ -14,24 +14,25 @@ const Dashboard = (props) => {
     
     return(
         <div className="dashbody">
-            <h1>Welcome {props.username}!</h1>
+            <h1>Welcome {props.currentUser.username}!</h1>
 
             <button onClick={handleEditUser}>edit Userdate</button>
-            {editUser === false ? 
-            (<p>Let's play Tic-Tac-Toe</p>) 
-            : 
+            {editUser ? 
             (
             <div>
-                <p>Let's play Tic-Tac-Toe</p>
+                <p>Let's play Tic-Tac-Toe.</p>
                 <form>
                     <div>
-                        <label id="change-password"></label>
-                        <input type="text" id="change-password"></input>
-                        <button type="submit">confirm</button>
+                        <label id="change-password" placeholder="Enter a new password"></label>
+                        <input type="text" id="change-password" name="newpassword" onChange={props.updateData}></input>
+                        <button type="submit" onClick={props.changePassword}>confirm</button>
                     </div>
                 </form>
             </div>
-            )}
+            )
+            :
+            (<p>Let's play Tic-Tac-Toe.</p>)
+            }
             <button onClick={startGame}>Start Game</button>
         </div>
     )

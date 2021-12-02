@@ -6,11 +6,9 @@ import Dashboard from "./Components/Dashboard"
 
 import {
   BrowserRouter as Router,
-  Switch,
   Route,
   Routes,
-  Link, 
-  useNavigate
+  // useNavigate
 } from "react-router-dom";
 
 import "./Styling/App.scss";
@@ -20,11 +18,14 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  let history = useNavigate();
+  const [newPassword, setNewPassword] = useState("");
+  // let navigate = useNavigate();
 
-  const redirectToDashboard = () => {
-    history.push("/dashboard")
-  }
+  // const redirectToDashboard = () => {
+  //   if (currentUser.username.length > 0) {
+  //     navigate("/dashboard", {replace: true})
+  //   }
+  // }
 
   // todo - Current User Object
   const [currentUser, setCurrentUser] = useState({
@@ -47,6 +48,9 @@ const App = () => {
         break;
       case "email":
         setEmail(event.target.value);
+        break;
+      case "newpassword":
+        setNewPassword(event.target.value);
         break;
 
       default:
@@ -104,10 +108,6 @@ const App = () => {
         setCurrentUser(data);
         setUsername("");
         setPassword("");
-        if (data.username) {
-          // redirectToDashboard()
-          history("/dashboard")
-      }
       })
       .catch((err) => {
         alert(err.message);
@@ -180,6 +180,48 @@ const App = () => {
       });
   };
 
+  const changePassword = (event) => {
+    event.preventDefault();
+
+    const changePassword = {
+        // userId: props.currentUser._id,
+        newPassword: newPassword
+    }
+
+    const jsonPasswordData = JSON.stringify(changePassword);
+
+    const settings = {
+        method: "PATCH",
+        body: jsonPasswordData,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+
+    fetch(`http://localhost:3000/user/${currentUser._id}`, settings)
+    .then(response => {
+        if (response.ok) {
+            return response.json()
+        } else {
+            switch(response.status) {
+                case 404: 
+                    return response.json().then((err) => {
+                    throw new Error(err.message);
+                  });
+                default:
+                    throw new Error("unknown");
+            }
+        }
+    })
+    .then(data => {
+        console.log(data);
+        setNewPassword("");
+    })
+    .catch(err => {
+        alert(err.message);
+    })
+}
+
   return (
     <Router>
       <div className="app-container">
@@ -195,6 +237,8 @@ const App = () => {
                   updateData={updateData}
                   username={username}
                   password={password}
+                  currentUser={currentUser}
+                  // redirect={redirectToDashboard}
                 />
               }
             />
@@ -217,7 +261,9 @@ const App = () => {
               exact 
               element={
                 <Dashboard 
-                  username={currentUser.username}
+                  currentUser={currentUser}
+                  changePassword={changePassword}
+                  updateData={updateData}
                 />
               } 
             />

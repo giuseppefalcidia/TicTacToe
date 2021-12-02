@@ -1,6 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 const LandingPage = (props) => {
+  let navigate = useNavigate();
+
+  const redirectToDashboard = () => {
+    if (props.currentUser.username.length > 0) {
+      navigate("/dashboard", {replace: true})
+    }
+  }
   // // State hooks for login and sign up
   // const [username, setUsername] = useState("");
   // const [password, setPassword] = useState("");
@@ -231,19 +239,21 @@ const LandingPage = (props) => {
               value={props.password}
             ></input>
 
-            <button>Login</button>
+            <button onClick={redirectToDashboard}>Login</button>
           </form>
         </div>
 
         {/* // !! Will navigate to sign up section */}
         <div>Or are you new here?</div>
-        <button
-          // onClick={displaySignIn}
-          name="signUp"
-          className="go-to-sign-up-button"
-        >
-          Sign Up
-        </button>
+        <Link to="/signup">
+          <button
+            // onClick={displaySignIn}
+            name="signUp"
+            className="go-to-sign-up-button"
+          >
+            Sign Up
+          </button>
+        </Link>
       </div>
     </div>
   );

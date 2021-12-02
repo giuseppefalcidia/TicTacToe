@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 
 const SignUp = (props) => {
   return (
@@ -23,7 +24,9 @@ const SignUp = (props) => {
           onChange={props.updateData}
           value={props.password}
         ></input>
-        <button>Sign me up!</button>
+        {/* <Link to="/"> */}
+          <button>Sign me up!</button>
+        {/* </Link> */}
       </form>
     </div>
   );
