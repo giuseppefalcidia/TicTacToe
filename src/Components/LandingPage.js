@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -11,9 +12,27 @@ const LandingPage = (props) => {
       navigate("/dashboard", {replace: true})
     }
   }
+=======
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+
+// AOS
+import Aos from "aos";
+import "aos/dist/aos.css";
+
+const LandingPage = (props) => {
+  // AOS functionality
+  useEffect(() => {
+    Aos.init({ duration: 1000, once: true });
+  }, []);
+>>>>>>> 0be96d27ea96a488bf901257f7ed74e655ed4380
 
   return (
-    <div className="landing-page-container">
+    <div
+      className="landing-page-container"
+      // AOS
+      data-aos="fade-down"
+    >
       {/* Welcome container containing login and sign up options */}
       <header className="app-header">
         <h1 className="app-heading">
@@ -42,6 +61,7 @@ const LandingPage = (props) => {
               value={props.password}
             ></input>
 
+<<<<<<< HEAD
             <button onClick={RedirectToDashboard}>Login</button>
           </form>
         </div>
@@ -57,6 +77,22 @@ const LandingPage = (props) => {
             Sign Up
           </button>
         </Link>
+=======
+            <button>Login to play!</button>
+          </form>
+        </div>
+
+        {/* //  Will navigate to sign up section */}
+        <div className="new-user-container">
+          <div className="signup-heading">Or are you new here?</div>
+
+          <Link to="/signup" alt="Link to signup page">
+            <button name="signUp" className="go-to-sign-up-button">
+              Sign Up
+            </button>
+          </Link>
+        </div>
+>>>>>>> 0be96d27ea96a488bf901257f7ed74e655ed4380
       </div>
     </div>
   );

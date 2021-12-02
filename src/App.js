@@ -2,16 +2,23 @@ import React, { useState } from "react";
 import LandingPage from "./Components/LandingPage";
 import GamePage from "./Components/GamePage";
 import SignUp from "./Components/SignUp";
-import Dashboard from "./Components/Dashboard"
+import Dashboard from "./Components/Dashboard";
+import { SocketProvider } from "./contexts/SocketProvider";
 
 import {
   BrowserRouter as Router,
+  Redirect,
   Route,
   Routes,
-  // useNavigate
+  Link,
+  useNavigate,
 } from "react-router-dom";
 
 import "./Styling/App.scss";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 
 const App = () => {
   // State hooks for login and sign up
@@ -105,12 +112,30 @@ const App = () => {
         }
       })
       .then((data) => {
+        // ? Successful tost message
+        const loginSuccessful = () => {
+          toast("Login successful!! Time to start playing! 👾  🎲", {
+            position: "top-center",
+            draggable: false,
+          });
+        };
+
+        loginSuccessful();
         setCurrentUser(data);
         setUsername("");
         setPassword("");
       })
       .catch((err) => {
-        alert(err.message);
+        // ? Error toast message
+        const loginFailed = () => {
+          toast.error(`Error: ${err.message}`, {
+            position: "top-center",
+            draggable: false,
+          });
+        };
+
+        loginFailed();
+        // alert(err.message);
         setUsername("");
         setPassword("");
       });
@@ -162,18 +187,37 @@ const App = () => {
         }
       })
       .then((data) => {
-        // !! Check back with currentUser
+        // ? Successful toast message
+        const signupSuccessful = () => {
+          toast("Sign up successful!! Time to start playing! 👾  🎲", {
+            position: "top-center",
+            draggable: false,
+          });
+        };
+
+        // todo Check back with currentUser
         console.log(data);
         // setCurrentUser(data);
+        signupSuccessful();
         setUsername("");
         setPassword("");
         setEmail("");
+
         // if (data.token) {
         //  navigate('/dashboard')
         // }
       })
       .catch((err) => {
-        alert(err.message);
+        // ? Error toast message
+        const signUpFailed = () => {
+          toast.error(`Error: ${err.message}`, {
+            position: "top-center",
+            draggable: false,
+          });
+        };
+
+        signUpFailed();
+        // alert(err.message);
         setUsername("");
         setPassword("");
         setEmail("");
@@ -223,39 +267,39 @@ const App = () => {
 }
 
   return (
-    <Router>
-      <div className="app-container">
-        <main className="main-container">
-          <Routes>
-            {/* <LandingPage /> */}
-            <Route
-              path="/"
-              exact
-              element={
-                <LandingPage
-                  submitLoginData={submitLoginData}
-                  updateData={updateData}
-                  username={username}
-                  password={password}
-                  currentUser={currentUser}
-                  // redirect={redirectToDashboard}
-                />
-              }
-            />
-            {/* SignUp page */}
-            <Route
-              path="/signup"
-              exact
-              element={
-                <SignUp
-                  addLoginData={addLoginData}
-                  updateData={updateData}
-                  username={username}
-                  password={password}
-                  email={email}
-                />
-              }
-            />
+    <SocketProvider id={"test"}>
+      <Router>
+        <div className="app-container">
+          <main className="main-container">
+            <Routes>
+              {/* <LandingPage /> */}
+              <Route
+                path="/"
+                exact
+                element={
+                  <LandingPage
+                    submitLoginData={submitLoginData}
+                    updateData={updateData}
+                    username={username}
+                    password={password}
+                    currentUser={currentUser}
+                  />
+                }
+              />
+              {/* SignUp page */}
+              <Route
+                path="/signup"
+                exact
+                element={
+                  <SignUp
+                    addLoginData={addLoginData}
+                    updateData={updateData}
+                    username={username}
+                    password={password}
+                    email={email}
+                  />
+                }
+              />
             <Route 
               path="/dashboard"  
               exact 
@@ -268,11 +312,13 @@ const App = () => {
               } 
             />
             {/* <GamePage /> */}
+
             <Route path="/gamepage" exact element={<GamePage />} />
           </Routes>
         </main>
       </div>
     </Router>
+    </SocketProvider>
   );
 };
 

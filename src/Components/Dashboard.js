@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Aos from "aos";
 // import { Link } from "react-router-dom";
 
 const Dashboard = (props) => {
@@ -8,34 +9,53 @@ const Dashboard = (props) => {
         setEditUser((p) => !p)
     }
 
-    const startGame = () => {
-
-    }
+    useEffect(() => {
+        Aos.init({ duration: 1000, once: true });
+      }, []);
     
     return(
-        <div className="dashbody">
-            <h1>Welcome {props.currentUser.username}!</h1>
+        <div className="dashboard-container">
+      <h1
+        className="dashboard-header"
+        // AOS
+        data-aos="fade-right"
+      >
+        Welcome <span className="dashboard-header-user">{props.username}</span>!
+      </h1>
 
-            <button onClick={handleEditUser}>edit Userdate</button>
-            {editUser ? 
-            (
-            <div>
-                <p>Let's play Tic-Tac-Toe.</p>
-                <form>
-                    <div>
-                        <label id="change-password" placeholder="Enter a new password"></label>
-                        <input type="text" id="change-password" name="newpassword" onChange={props.updateData}></input>
-                        <button type="submit" onClick={props.changePassword}>confirm</button>
-                    </div>
-                </form>
-            </div>
-            )
-            :
-            (<p>Let's play Tic-Tac-Toe.</p>)
-            }
-            <button onClick={startGame}>Start Game</button>
+      <button
+        className="edit-user-button"
+        onClick={handleEditUser} // AOS
+        data-aos="fade-left"
+      >
+        Edit User
+      </button>
+      {editUser === false ? (
+        <p
+          className="lets-play-paragraph" // AOS
+          data-aos="fade-right"
+        >
+          Let's play Tic-Tac-Toe!
+        </p>
+      ) : (
+        <div className="lets-play-container">
+          <p className="lets-play-paragraph">Let's play Tic-Tac-Toe!</p>
+          <form className="change-password-form">
+            <label id="change-password">New Password:</label>
+            <input type="text" id="change-password"></input>
+            <button className="confirm-button">confirm</button>
+          </form>
         </div>
-    )
-}
+      )}
+
+      <button
+        className="start-game-button" // AOS
+        data-aos="fade-left"
+      >
+        Start Game
+      </button>
+    </div>
+  );
+};
 
 export default Dashboard;

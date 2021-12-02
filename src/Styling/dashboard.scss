@@ -1,3 +1,104 @@
+<<<<<<< HEAD
 .dashbody {
     background: $background;
 }
+=======
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 80vw;
+  height: auto;
+  margin-top: 6rem;
+}
+
+.dashboard-header,
+.dashboard-header-user {
+  font-family: $main-font-font-family;
+  font-size: 3rem;
+  color: $main-light-blue;
+  text-align: center;
+}
+
+.dashboard-header-user {
+  color: $green;
+}
+
+.edit-user-button,
+.start-game-button,
+.confirm-button {
+  border: none;
+  outline: none;
+
+  padding: 0.5rem 1rem 0.4rem 1rem;
+  border-radius: 0.5rem;
+  background: $main-powder-blue;
+
+  margin: 3rem 0 1.5rem 0;
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+
+  &:hover {
+    font-weight: bold;
+    background: $main-dark-blue;
+  }
+}
+
+.start-game-button {
+  background: $green;
+
+  &:hover {
+    background: $main-light-blue;
+  }
+}
+
+.confirm-button {
+  margin: 0;
+}
+
+.lets-play-paragraph {
+  font-family: $roboto-font-family;
+  color: $fuschia;
+
+  font-size: 1.8rem;
+  text-align: center;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+
+  text-align: center;
+
+  margin-top: 0.2rem;
+}
+
+.lets-play-container {
+  width: 90%;
+}
+
+.lets-play-container,
+.change-password-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin: 1rem;
+}
+
+.change-password-form {
+  label {
+    margin: 0.6rem 0 0.6rem 0;
+    color: $game-page-off-white;
+  }
+
+  input {
+    margin-bottom: 1rem;
+    border-radius: 0.1rem;
+    padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+    border: none;
+    outline: none;
+    background: $whitesmoke;
+    font-size: 15px;
+  }
+}
+>>>>>>> 0be96d27ea96a488bf901257f7ed74e655ed4380
