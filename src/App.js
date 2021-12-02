@@ -5,14 +5,13 @@ import SignUp from "./Components/SignUp";
 import Dashboard from "./Components/Dashboard";
 import { SocketProvider } from "./contexts/SocketProvider";
 
-import { Navigate } from "react-router-dom";
-
 import {
   BrowserRouter as Router,
   Redirect,
   Route,
   Routes,
   Link,
+  Navigate,
   useNavigate,
 } from "react-router-dom";
 
@@ -289,14 +288,9 @@ const App = () => {
 =======
               {/* Game page */}
               <Route path="/gamepage" exact element={<GamePage />} />
-
-              {/* // ! Trying to bug fix  */}
-              {/* <Redirect to="/" exact /> */}
-              {/* <Navigate to="/" exact /> */}
-              {/* <Navigate replace to="/" /> */}
-              {/* <Route path="*" element={<Navigate to="/" />} /> */}
-              {/*  <Route path="/" element={<Navigate replace to="/home" />} /> */}
             </Routes>
+            {/* Fallback path */}
+            <Navigate to="/" exact />
           </main>
         </div>
       </Router>
