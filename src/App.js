@@ -274,7 +274,7 @@ const App = () => {
               <Route path="/gamepage" exact element={<GamePage />} />
             </Routes>
             {/* Fallback path */}
-            <Navigate to="/" exact />
+            {/* <Navigate to="/" exact /> */}
           </main>
         </div>
       </Router>
