@@ -5,8 +5,6 @@ import SignUp from "./Components/SignUp";
 import Dashboard from "./Components/Dashboard";
 import { SocketProvider } from "./contexts/SocketProvider";
 
-import { Navigate } from "react-router-dom";
-
 import {
   BrowserRouter as Router,
   Redirect,
@@ -95,11 +93,7 @@ const App = () => {
     };
 
     // todo - set path
-<<<<<<< HEAD
-    fetch("http://localhost:3000/login", settings)
-=======
     fetch("http://localhost:3001/login", settings)
->>>>>>> jan
       .then((response) => {
         if (response.ok) {
           console.log(response);
@@ -181,11 +175,7 @@ const App = () => {
     };
 
     // todo - set path
-<<<<<<< HEAD
-    fetch("http://localhost:3000/user", settings)
-=======
     fetch("http://localhost:3001/user", settings)
->>>>>>> jan
       .then((response) => {
         if (response.ok) {
           console.log(response);
@@ -280,27 +270,11 @@ const App = () => {
               element={<Dashboard username={currentUser.username} />}
             />
 
-<<<<<<< HEAD
             <Route path="/gamepage" exact element={<GamePage />} />
           </Routes>
         </main>
       </div>
     </Router>
-=======
-              {/* Game page */}
-              <Route path="/gamepage" exact element={<GamePage />} />
-
-              {/* // ! Trying to bug fix  */}
-              {/* <Redirect to="/" exact /> */}
-              {/* <Navigate to="/" exact /> */}
-              {/* <Navigate replace to="/" /> */}
-              {/* <Route path="*" element={<Navigate to="/" />} /> */}
-              {/*  <Route path="/" element={<Navigate replace to="/home" />} /> */}
-            </Routes>
-          </main>
-        </div>
-      </Router>
->>>>>>> 09813d5b1a670dfe75380a4cd10891cbc89883ae
     </SocketProvider>
   );
 };
