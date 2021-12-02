@@ -25,8 +25,13 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+<<<<<<< HEAD
   const [newPassword, setNewPassword] = useState("");
   // let navigate = useNavigate();
+=======
+  // TODO Marc create a useState or similar with the ID to pass to the SocketProvider
+  const id = "test";
+>>>>>>> 73a69da053f7ead5fbd9b4606f4d102a176ed1f2
 
   // const redirectToDashboard = () => {
   //   if (currentUser.username.length > 0) {
@@ -300,6 +305,7 @@ const App = () => {
                   />
                 }
               />
+<<<<<<< HEAD
             <Route 
               path="/dashboard"  
               exact 
@@ -317,6 +323,22 @@ const App = () => {
         </main>
       </div>
     </Router>
+=======
+
+              {/* Dashboard page */}
+              <Route
+                path="/dashboard"
+                exact
+                element={<Dashboard username={currentUser.username} />}
+              />
+
+              {/* Game page */}
+              <Route path="/gamepage" exact element={<GamePage />} />
+            </Routes>
+          </main>
+        </div>
+      </Router>
+>>>>>>> 73a69da053f7ead5fbd9b4606f4d102a176ed1f2
     </SocketProvider>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 // AOS
 import Aos from "aos";
@@ -53,12 +54,15 @@ const Dashboard = (props) => {
         </div>
       )}
 
-      <button
-        className="start-game-button" // AOS
-        data-aos="fade-left"
-      >
-        Start Game
-      </button>
+      <Link to="/gamepage" alt="Link to start game.">
+        <button
+          className="start-game-button"
+          // AOS
+          data-aos="fade-left"
+        >
+          Start Game
+        </button>
+      </Link>
     </div>
   );
 };
