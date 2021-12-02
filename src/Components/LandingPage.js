@@ -53,17 +53,6 @@ const LandingPage = (props) => {
               value={props.password}
             ></input>
 
-        {/* // !! Will navigate to sign up section */}
-        {/* <div>Or are you new here?</div>
-        <Link to="/signup">
-          <button
-            // onClick={displaySignIn}
-            name="signUp"
-            className="go-to-sign-up-button"
-          >
-            Sign Up
-          </button>
-        </Link> */}
             <button onClick={RedirectToDashboard}>Login to play!</button>
           </form>
         </div>
