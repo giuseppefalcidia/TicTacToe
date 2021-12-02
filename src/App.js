@@ -11,6 +11,7 @@ import {
   Route,
   Routes,
   Link,
+  Navigate,
   useNavigate,
 } from "react-router-dom";
 
@@ -25,8 +26,9 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   // TODO Marc create a useState or similar with the ID to pass to the SocketProvider
-  const id = "test"
+  const id = "test";
 
   // ! Adding manually as I could not get it to merge
   // let history = useNavigate();
@@ -56,6 +58,9 @@ const App = () => {
         break;
       case "email":
         setEmail(event.target.value);
+        break;
+      case "newpassword":
+        setNewPassword(event.target.value);
         break;
 
       default:
@@ -110,17 +115,17 @@ const App = () => {
         }
       })
       .then((data) => {
-        console.log("Successful login!")
+        console.log("Successful login!");
         // ? Successful tost message
         const loginSuccessful = () => {
-          // toast("Login successful!! Time to start playing! 👾  🎲", {
-          //   position: "top-center",
-          //   draggable: false,
-          // });
-          // console.log("Hello world!")
-          window.location.replace("http://localhost:3000/dashboard")
+          toast("Login successful!! Taking you to the game! 👾  🎲 ", {
+            position: "top-center",
+            autoClose: 2000,
+            draggable: false,
+            onClose: () =>
+              window.location.replace("http://localhost:3000/dashboard"),
+          });
         };
-        
 
         setCurrentUser(data);
         loginSuccessful();
@@ -136,6 +141,7 @@ const App = () => {
           toast.error(`Error: ${err.message}`, {
             position: "top-center",
             draggable: false,
+            autoClose: 2000,
           });
         };
 
@@ -194,10 +200,15 @@ const App = () => {
       .then((data) => {
         // ? Successful toast message
         const signupSuccessful = () => {
-          toast("Sign up successful!! Time to start playing! 👾  🎲", {
-            position: "top-center",
-            draggable: false,
-          });
+          toast(
+            "Sign up successful!! Time to login and to start playing! 👾  🎲 ",
+            {
+              position: "top-center",
+              autoClose: 2000,
+              draggable: false,
+              onClose: () => window.location.replace("http://localhost:3000/"),
+            }
+          );
         };
 
         // todo Check back with currentUser
@@ -218,6 +229,7 @@ const App = () => {
           toast.error(`Error: ${err.message}`, {
             position: "top-center",
             draggable: false,
+            autoClose: 2000,
           });
         };
 
@@ -227,6 +239,48 @@ const App = () => {
         setPassword("");
         setEmail("");
       });
+  };
+
+  const changePassword = (event) => {
+      event.preventDefault();
+      
+      const changePassword = {
+        // userId: props.currentUser._id,
+        newPassword: newPassword
+      }
+
+      const jsonPasswordData = JSON.stringify(changePassword);
+    
+      const settings = {
+        method: "PATCH",
+        body: jsonPasswordData,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+
+      fetch(`http://localhost:3000/user/${currentUser._id}`, settings)
+      .then(response => {
+        if (response.ok) {
+          return response.json()
+        } else {
+          switch(response.status) {
+            case 404: 
+              return response.json().then((err) => {
+                throw new Error(err.message);
+              });
+            default:
+              throw new Error("unknown");
+          }
+        }
+      })
+      .then(data => {
+        console.log(data);
+        setNewPassword("");
+      })
+      .catch(err => {
+        alert(err.message);
+      })
   };
 
   return (
@@ -264,17 +318,40 @@ const App = () => {
                 }
               />
 
-            <Route
-              path="/dashboard"
-              exact
-              element={<Dashboard username={currentUser.username} />}
-            />
+              <Route
+                path="/dashboard"
+                exact
+                element={
+                  <Dashboard 
+                    username={currentUser.username}
+                    changePassword={changePassword}
+                    newPassword={newPassword} 
+                    update={updateData}
+                  />
+                }
+              />
 
-            <Route path="/gamepage" exact element={<GamePage />} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
+              {/* Game page */}
+              <Route path="/gamepage" exact element={<GamePage />} />
+
+              {/*  Fallback path - directs user back to login page */}
+              <Route
+                path="*"
+                exact
+                element={
+                  <LandingPage
+                    submitLoginData={submitLoginData}
+                    updateData={updateData}
+                    username={username}
+                    password={password}
+                    currentUser={currentUser}
+                  />
+                }
+              />
+            </Routes>
+          </main>
+        </div>
+      </Router>
     </SocketProvider>
   );
 };

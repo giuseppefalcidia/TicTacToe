@@ -2,6 +2,10 @@
 @import "./reset";
 @import "./mixins";
 
+// !!! Trying to refactor code to make responsive
+// !!! Come back to and make layout flex - will be easier to make responsive
+// !!! Update to Sass..
+
 * {
   padding: 0;
   margin: 0;
@@ -13,23 +17,13 @@ body {
   display: grid;
   place-items: center;
   height: 100vh;
-  background: #131419;
+  background: $background;
 }
-
-// #container {
-//   height: auto;
-//   width: auto;
-//   background: linear-gradient(to bottom, #2b2d47 10%, #181926);
-//   border-radius: 20px;
-//   padding: 30px;
-//   box-shadow: inset 1px 2px 0 rgb(255 255 255 / 18%),
-//     inset -2px -2px 2px rgb(0 0 0 / 65%);
-// }
 
 #startingPage {
   margin-top: 8rem;
   height: 220px;
-  width: 400px;
+  width: 300px;
   text-align: center;
 }
 
@@ -61,7 +55,8 @@ body {
   flex-direction: row;
 }
 
-#button button {
+#button button,
+.play-again-button {
   height: 55px;
   width: 180px;
   cursor: pointer;
@@ -86,14 +81,24 @@ body {
   transform: scale(0.9);
 }
 
+#winnerName {
+  margin-bottom: 2rem;
+}
+
 #winner {
   display: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 5rem;
 }
 
 #winner #button {
   height: auto;
   width: 100%;
   display: flex;
+
   justify-content: center;
 }
 
@@ -155,19 +160,19 @@ body {
 }
 
 #gameBoard {
-  height: 400px;
-  width: 330px;
+  height: 350px;
+  width: 310px;
   position: absolute;
   top: 150px;
-  left: 10px;
+  left: 20px;
   display: grid;
   grid-template-columns: 100px 100px 100px;
   grid-gap: 15px;
 }
 
 .boxes {
-  height: 100px;
-  width: 100px;
+  height: 80px;
+  width: 80px;
   box-shadow: 2px 2px 2px rgb(255 255 255 / 26%), -2px -2px 5px rgb(0 0 0 / 87%);
   display: grid;
   place-items: center;
@@ -187,4 +192,41 @@ body {
 
 .ex-element {
   color: $fuschia;
+}
+
+// ? Small phones
+
+@include smallPhones {
+  #startingPage {
+    width: 250px;
+  }
+  #gameBoard {
+    height: 300px;
+    width: 260px;
+    left: 63px;
+    display: grid;
+    grid-template-columns: 80px 80px 80px;
+    grid-gap: 5px;
+  }
+
+  .boxes {
+    height: 70px;
+    width: 70px;
+    font-size: 2.5rem;
+  }
+}
+
+// !!! Galaxy
+@media (max-width: 280px) {
+  #gameBoard {
+    left: 73px;
+  }
+}
+
+// ? Tablet
+
+@include tablet {
+  #startingPage {
+    width: 400px;
+  }
 }

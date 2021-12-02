@@ -19,6 +19,8 @@ const Dashboard = (props) => {
     Aos.init({ duration: 1000, once: true });
   }, []);
 
+  // console.log(props.newPassword)
+
   return (
     <div className="dashboard-container">
       <h1
@@ -45,10 +47,16 @@ const Dashboard = (props) => {
         </p>
       ) : (
         <div className="lets-play-container">
-          <p className="lets-play-paragraph">Let's play Tic-Tac-Toe!</p>
-          <form className="change-password-form">
-            <label id="change-password">New Password:</label>
-            <input type="text" id="change-password"></input>
+          <p className="lets-play-paragraph" data-aos="fade-left">You want to Change your password?</p>
+          <form className="change-password-form" data-aos="fade-right" onSubmit={props.changePassword}>
+            <label id="change-password">Create new Password:</label>
+            <input 
+              type="text" 
+              id="change-password" 
+              name="newpassword"
+              onChange={props.updateData}
+              value={props.newPassword}
+            ></input>
             <button className="confirm-button">confirm</button>
           </form>
         </div>

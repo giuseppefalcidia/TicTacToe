@@ -63,11 +63,41 @@
 }
 
 .signup-h3 {
-  font-size: 2.3rem;
+  font-size: 2rem;
   letter-spacing: 2px;
   color: $main-light-blue;
   font-family: $main-font-font-family;
-  margin-top: 6rem;
-  width: 60%;
+  margin-top: 4rem;
+  width: 80%;
   text-align: center;
+}
+
+// ? For iphone 5 and Galaxy fold..
+// Media query from _mixins
+@include smallPhones {
+  .sign-up-form {
+    width: 60%;
+  }
+}
+
+// ? Tablet
+// Media query from _mixins
+@include tablet {
+  .signup-h3 {
+    font-size: 3rem;
+    margin-top: 10rem;
+  }
+
+  .sign-in-form-container {
+    margin-top: 1rem;
+  }
+}
+
+// ? Desktop
+// Media query from _mixins
+@include desktop {
+  .signup-h3 {
+    font-size: 4rem;
+    margin-top: 6rem;
+  }
 }

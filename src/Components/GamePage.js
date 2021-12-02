@@ -11,10 +11,6 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 
 const GamePage = () => {
-  // AOS functionality
-  useEffect(() => {
-    Aos.init({ duration: 1000, once: true });
-  }, []);
   const [winnerName, setWinnerName] = useState("");
   const [changeTurn, setChangeTurn] = useState(null);
   const [showChange, setShowChange] = useState(false);
@@ -33,6 +29,11 @@ const GamePage = () => {
     "",
     "",
   ]);
+
+  // AOS functionality
+  useEffect(() => {
+    Aos.init({ duration: 1000, once: true });
+  }, []);
 
   const recievePosition = useCallback(
     ({ position }) => {
@@ -167,7 +168,8 @@ const GamePage = () => {
   return (
     <>
       <title>Tic Tac Toe</title>
-      <link rel="stylesheet" href="css/style.css" />
+      {/* // ! Commenting out as we are already importing with Sass */}
+      {/* <link rel="stylesheet" href="css/style.css" /> */}
       <div id="container">
         {/* Starting Page */}
         <div
@@ -279,11 +281,15 @@ const GamePage = () => {
         {/* Winner Page */}
         <div
           id="winner"
-          style={winnerPage ? { display: "block" } : { display: "none" }}
+          // !!! Display FLEX  on #winner to allow responsive styling
+          style={winnerPage ? { display: "flex" } : { display: "none" }}
         >
           <h2 id="winnerName">{winnerName}</h2>
-          <div id="button">
-            <button onClick={refresh}>Play Again</button>
+          {/* // !!! Added play-again-button class to keep style */}
+          <div className="play-again-button">
+            <button className="play-again-button" onClick={refresh}>
+              Play Again
+            </button>
           </div>
         </div>
       </div>
