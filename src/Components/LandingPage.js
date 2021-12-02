@@ -5,7 +5,7 @@ const LandingPage = (props) => {
   let navigate = useNavigate();
 
   const redirectToDashboard = () => {
-    if (props.currentUser.username.length > 0) {
+    if (props.currentUser.username) {
       navigate("/dashboard", {replace: true})
     }
   }
