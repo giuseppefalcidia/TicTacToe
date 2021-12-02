@@ -94,7 +94,7 @@ const App = () => {
     };
 
     // todo - set path
-    fetch("http://localhost:3000/login", settings)
+    fetch("http://localhost:3001/login", settings)
       .then((response) => {
         if (response.ok) {
           console.log(response);
