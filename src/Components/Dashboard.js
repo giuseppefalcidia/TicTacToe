@@ -21,7 +21,7 @@ const Dashboard = (props) => {
 
   // console.log(props.newPassword)
 
-  console.log("Testing username");
+  console.log("********* USER:", props.currentUser);
 
   return (
     <div className="dashboard-container">
@@ -31,7 +31,9 @@ const Dashboard = (props) => {
         data-aos="fade-right"
       >
         Welcome{" "}
-        <span className="dashboard-header-user">{props.username.username}</span>
+        <span className="dashboard-header-user">
+          {props.currentUser.username}
+        </span>
         !
       </h1>
 

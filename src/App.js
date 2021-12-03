@@ -72,13 +72,11 @@ const App = () => {
     }
   };
 
-  // ! LOGIN functionality
-  // todo - POST and FETCH request for login - connect to database and setup correct path
+  // ? LOGIN functionality
   // Submit login data function - updated onChange..
   const submitLoginData = (event) => {
-    // event.preventDefault();
+    event.preventDefault();
 
-    // ! Should I split into different variables for login and sign up
     // Collected Data from update data...
     const loginData = {
       username: username,
@@ -86,8 +84,8 @@ const App = () => {
     };
 
     //  For testing...
-    console.log(loginData.username);
-    console.log(loginData.password);
+    // console.log(loginData.username);
+    // console.log(loginData.password);
 
     // todo - uncomment once set up with db
     const jsonLoginData = JSON.stringify(loginData);
@@ -119,21 +117,29 @@ const App = () => {
         }
       })
       .then((data) => {
-        console.log("Successful login!");
-        console.log("!!!!!", data);
+        // console.log("Successful login!");
+        // console.log("!!!!!", data);
+
+        // console.log("!!!!!!!!", currentUser);
 
         // ? Successful tost message
         const loginSuccessful = () => {
+          // !!! TESTING
+          // setCurrentUser(data);
+          console.log("!!!!!!!!", currentUser);
+
           toast("Login successful!! Taking you to the game! 👾  🎲 ", {
             position: "top-center",
             autoClose: 2000,
             draggable: false,
 
+            // !!! curentUser state is holding until dashboard renders
             onClose: () =>
               window.location.replace(
                 `http://localhost:${frontendPort}/dashboard`
               ),
           });
+          // console.log("!!!!!!!!", currentUser);
         };
 
         setCurrentUser(data);
@@ -293,8 +299,6 @@ const App = () => {
       });
   };
 
-  console.log("CURRENT USER", currentUser.username);
-
   return (
     <SocketProvider id={id}>
       <Router>
@@ -335,10 +339,11 @@ const App = () => {
                 exact
                 element={
                   <Dashboard
-                    username={currentUser.username}
+                    // username={currentUser.username}
                     changePassword={changePassword}
                     newPassword={newPassword}
                     update={updateData}
+                    currentUser={currentUser}
                   />
                 }
               />
