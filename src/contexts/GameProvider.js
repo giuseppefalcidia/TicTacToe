@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useCallback } from 'react'
-import useLocalStorage from '../hooks/useLocalStorage';
+import useLocalStorage from '../hooks/useLocalStorage'
 // import { useContacts } from './ContactsProvider'; //? For having friends to play with?
 import { useSocket } from './SocketProvider';
 
@@ -16,8 +16,14 @@ export function GameProvider({ id, children }) {
 
     const socket = useSocket()
 
-    const updatePosition = useCallback(({ position, player }) => {
-        console.log(position,player)
+    if(socket) {
+        console.log(socket)
+    }
+    
+
+    const updatePosition = useCallback(({ index, player }) => {
+        console.log(index,player)
+        position[index] = player
         setPosition(position)
         // setPosition(newPosition[position] = player)
     },[setPosition])
@@ -30,10 +36,10 @@ export function GameProvider({ id, children }) {
         return () => socket.off('receive-position')
     }, [socket, updatePosition])
 
-    function sendPosition(position, player) {
-            socket.emit('send-position', { position, player })
+    function sendPosition(index, player) {
+            socket.emit('send-position', { index, player })
 
-            updatePosition({ position, player })
+            updatePosition({ index, player })
     }
     const value = {
         position,

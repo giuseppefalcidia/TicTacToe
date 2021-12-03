@@ -2,7 +2,8 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch, faTimes } from "@fortawesome/free-solid-svg-icons";
 
-import { useSocket } from "../contexts/SocketProvider";
+// import { useSocket } from "../contexts/SocketProvider";
+import { useGame } from "../contexts/GameProvider";
 import useLocalStorage from "../hooks/useLocalStorage";
 
 import "../Styling/game-page.scss";
@@ -18,33 +19,38 @@ const GamePage = () => {
   const [startingPage,setStartingPage] = useState(false)
   const [mainPage,setMainPage] = useState(true)
   const [winnerPage, setWinnerPage] = useState(false)
-  const socket = useSocket()
-  const [position,setPosition] = useState(["","","","","","","","",""])
-
+  // const socket = useSocket()
+  
+  
+  // const [position,setPosition] = useState(["","","","","","","","",""])
   // const [position,setPosition] = useLocalStorage("position",["","","","","","","","",""])
+  const {sendPosition,position} = useGame()  
+
+  
   const [player,setPlayer] = useLocalStorage("player")
 
-  console.log(socket.id)
+  // console.log(socket.id)
 
   // AOS functionality
   useEffect(() => {
     Aos.init({ duration: 1000, once: true });
   }, []);
 
-  const recievePosition = useCallback(
-    ({ position }) => {
-      setPosition(position);
-    },
-    [setPosition]
-  );
+  // Added to Game provider
+  // const recievePosition = useCallback(
+  //   ({ position }) => {
+  //     setPosition(position);
+  //   },
+  //   [setPosition]
+  // );
 
-  useEffect(() => {
-    if (socket == null) return;
+  // useEffect(() => {
+  //   if (socket == null) return;
 
-    socket.on("receive-position", recievePosition);
+  //   socket.on("receive-position", recievePosition);
 
-    return () => socket.off("receive-message");
-  }, [socket, recievePosition]);
+  //   return () => socket.off("receive-message");
+  // }, [socket, recievePosition]);
 
   const circle = (
     <FontAwesomeIcon className="circle-element" icon={faCircleNotch} />
@@ -54,14 +60,15 @@ const GamePage = () => {
   // TODO Check if with the refactor this ref is needed
   const boxesRef = useRef();
 
-  useEffect(()=>{
-    const localPosition = localStorage.getItem("tictactoe-player")
-    setPosition(localPosition)
-    if (localStorage.getItem("tictactoe-player") === "undefined") {
-      setMainPage(false)
-      setStartingPage(true)
-    }
-  },[setPosition])
+  // useLocal for development purposes //! delete afterwards
+  // useEffect(()=>{
+  //   const localPosition = localStorage.getItem("tictactoe-player")
+  //   setPosition(localPosition)
+  //   if (localStorage.getItem("tictactoe-player") === "undefined") {
+  //     setMainPage(false)
+  //     setStartingPage(true)
+  //   }
+  // },[setPosition])
   
   
   const handleChoose = (event) => {
@@ -78,14 +85,15 @@ const GamePage = () => {
     setMainPage(true)
   }
 
-  useEffect(()=>{
-    setPosition(position)
-  },[position,setPosition])
+  // useEffect(()=>{
+  //   setPosition(position)
+  // },[position,setPosition])
   
   const handleBoxClick = (event) => {
     if (player === "X") {
       const index = event.target.getAttribute("data-boxPosition")
-      position[index] = "X"
+      sendPosition(index,player)
+      // position[index] = "X"
       // setPosition(position)
       event.currentTarget.id = "X";
       event.currentTarget.style.pointerEvents = "none";
@@ -100,7 +108,8 @@ const GamePage = () => {
       setPlayer("O")
     } else {
       const index = event.target.getAttribute("data-boxPosition")
-      position[index] = "O"
+      sendPosition(index,player)
+      // position[index] = "O"
       // setPosition(position)
       event.currentTarget.id = "O";
       event.currentTarget.pointerEvents = "none";
