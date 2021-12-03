@@ -22,7 +22,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
-// !!! Environmental Variables
+// ? Environmental Variables
 let backendPort = process.env.REACT_APP_BACKEND_PORT;
 let frontendPort = process.env.REACT_APP_FRONTEND_PORT;
 
@@ -34,13 +34,6 @@ const App = () => {
   const [newPassword, setNewPassword] = useState("");
   // TODO Marc create a useState or similar with the ID to pass to the SocketProvider
   const id = "test";
-
-  // ! Adding manually as I could not get it to merge
-  // let history = useNavigate();
-  // ! - How to implement?
-  // const redirectToDashboard = () => {
-  //   history.push("/dashboard");
-  // };
 
   // todo - Current User Object
   const [currentUser, setCurrentUser] = useState({
@@ -121,25 +114,28 @@ const App = () => {
         // console.log("Successful login!");
         // console.log("!!!!!", data);
 
-        // console.log("!!!!!!!!", currentUser);
-
         // ? Successful tost message
         const loginSuccessful = () => {
-          // !!! TESTING
-          // setCurrentUser(data);
+          // !!! TESTING so we can pass currentUser state to dashboard
+          setCurrentUser(data);
+          console.log(username);
+          console.log(currentUser.username);
           console.log("!!!!!!!!", currentUser);
 
-          toast("Login successful!! Taking you to the game! 👾  🎲 ", {
-            position: "top-center",
-            autoClose: 2000,
-            draggable: false,
+          toast(
+            ` ${username} Login successful!! Taking you to the game! 👾  🎲 `,
+            {
+              position: "top-center",
+              autoClose: 2000,
+              draggable: false,
 
-            // !!! curentUser state is holding until dashboard renders
-            onClose: () =>
-              window.location.replace(
-                `http://localhost:${frontendPort}/dashboard`
-              ),
-          });
+              // !!! currentUser state is holding until dashboard renders
+              onClose: () =>
+                window.location.replace(
+                  `http://localhost:${frontendPort}/dashboard`
+                ),
+            }
+          );
           // console.log("!!!!!!!!", currentUser);
         };
 
@@ -167,6 +163,8 @@ const App = () => {
         setPassword("");
       });
   };
+
+  console.log("???????????", currentUser);
 
   // !! ======
 
