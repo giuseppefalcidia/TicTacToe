@@ -4,6 +4,7 @@ import GamePage from "./Components/GamePage";
 import SignUp from "./Components/SignUp";
 import Dashboard from "./Components/Dashboard";
 import { SocketProvider } from "./contexts/SocketProvider";
+import { GameProvider } from "./contexts/GameProvider";
 
 import {
   BrowserRouter as Router,
@@ -301,74 +302,76 @@ const App = () => {
 
   return (
     <SocketProvider id={id}>
-      <Router>
-        <div className="app-container">
-          <main className="main-container">
-            <Routes>
-              {/* <LandingPage /> */}
-              <Route
-                path="/"
-                exact
-                element={
-                  <LandingPage
-                    submitLoginData={submitLoginData}
-                    updateData={updateData}
-                    username={username}
-                    password={password}
-                    currentUser={currentUser}
-                  />
-                }
-              />
-              {/* SignUp page */}
-              <Route
-                path="/signup"
-                exact
-                element={
-                  <SignUp
-                    addLoginData={addLoginData}
-                    updateData={updateData}
-                    username={username}
-                    password={password}
-                    email={email}
-                  />
-                }
-              />
+      <GameProvider id={id}>
+        <Router>
+          <div className="app-container">
+            <main className="main-container">
+              <Routes>
+                {/* <LandingPage /> */}
+                <Route
+                  path="/"
+                  exact
+                  element={
+                    <LandingPage
+                      submitLoginData={submitLoginData}
+                      updateData={updateData}
+                      username={username}
+                      password={password}
+                      currentUser={currentUser}
+                    />
+                  }
+                />
+                {/* SignUp page */}
+                <Route
+                  path="/signup"
+                  exact
+                  element={
+                    <SignUp
+                      addLoginData={addLoginData}
+                      updateData={updateData}
+                      username={username}
+                      password={password}
+                      email={email}
+                    />
+                  }
+                />
 
-              <Route
-                path="/dashboard"
-                exact
-                element={
-                  <Dashboard
-                    // username={currentUser.username}
-                    changePassword={changePassword}
-                    newPassword={newPassword}
-                    update={updateData}
-                    currentUser={currentUser}
-                  />
-                }
-              />
+                <Route
+                  path="/dashboard"
+                  exact
+                  element={
+                    <Dashboard
+                      // username={currentUser.username}
+                      changePassword={changePassword}
+                      newPassword={newPassword}
+                      update={updateData}
+                      currentUser={currentUser}
+                    />
+                  }
+                />
 
-              {/* Game page */}
-              <Route path="/gamepage" exact element={<GamePage />} />
+                {/* Game page */}
+                <Route path="/gamepage" exact element={<GamePage />} />
 
-              {/*  Fallback path - directs user back to login page */}
-              <Route
-                path="*"
-                exact
-                element={
-                  <LandingPage
-                    submitLoginData={submitLoginData}
-                    updateData={updateData}
-                    username={username}
-                    password={password}
-                    currentUser={currentUser}
-                  />
-                }
-              />
-            </Routes>
-          </main>
-        </div>
-      </Router>
+                {/*  Fallback path - directs user back to login page */}
+                <Route
+                  path="*"
+                  exact
+                  element={
+                    <LandingPage
+                      submitLoginData={submitLoginData}
+                      updateData={updateData}
+                      username={username}
+                      password={password}
+                      currentUser={currentUser}
+                    />
+                  }
+                />
+              </Routes>
+            </main>
+          </div>
+        </Router>
+      </GameProvider>
     </SocketProvider>
   );
 };

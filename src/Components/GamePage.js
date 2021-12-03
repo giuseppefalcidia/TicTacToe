@@ -24,6 +24,8 @@ const GamePage = () => {
   // const [position,setPosition] = useLocalStorage("position",["","","","","","","","",""])
   const [player,setPlayer] = useLocalStorage("player")
 
+  console.log(socket.id)
+
   // AOS functionality
   useEffect(() => {
     Aos.init({ duration: 1000, once: true });
@@ -49,6 +51,7 @@ const GamePage = () => {
   );
   const ex = <FontAwesomeIcon className="ex-element" icon={faTimes} />;
 
+  // TODO Check if with the refactor this ref is needed
   const boxesRef = useRef();
 
   useEffect(()=>{
