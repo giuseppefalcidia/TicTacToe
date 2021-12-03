@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import { useSocket } from "../contexts/SocketProvider";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 import "../Styling/game-page.scss";
 
@@ -11,24 +12,17 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 
 const GamePage = () => {
-  const [winnerName, setWinnerName] = useState("");
-  const [changeTurn, setChangeTurn] = useState(null);
-  const [showChange, setShowChange] = useState(false);
-  const [startingPage, setStartingPage] = useState(true);
-  const [mainPage, setMainPage] = useState(false);
-  const [winnerPage, setWinnerPage] = useState(false);
-  const socket = useSocket();
-  const [position, setPosition] = useState([
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-  ]);
+  const [winnerName,setWinnerName] = useState("")
+  const [changeTurn,setChangeTurn] = useState(true)
+  const [showChange,setShowChange] = useState(null)
+  const [startingPage,setStartingPage] = useState(false)
+  const [mainPage,setMainPage] = useState(true)
+  const [winnerPage, setWinnerPage] = useState(false)
+  const socket = useSocket()
+  // const [position,setPosition] = useState(["","","","","","","","",""])
+
+  const [position,setPosition] = useLocalStorage("position",["","","","","","","","",""])
+  const [player,setPlayer] = useLocalStorage("player")
 
   // AOS functionality
   useEffect(() => {
@@ -57,40 +51,58 @@ const GamePage = () => {
 
   const boxesRef = useRef();
 
-  const handleChoose = (event) => {
-    if (event.currentTarget.id === "playerX") {
-      setChangeTurn(false);
-      setShowChange(true);
-    } else {
-      setChangeTurn(true);
-      setShowChange(false);
+  useEffect(()=>{
+    const localPosition = localStorage.getItem("tictactoe-player")
+    setPosition(localPosition)
+    if (localStorage.getItem("tictactoe-player") === "undefined") {
+      setMainPage(false)
+      setStartingPage(true)
     }
-    setStartingPage(false);
-    setMainPage(true);
-  };
+  },[])
+  
+  
+  const handleChoose = (event) => {
+      if (event.currentTarget.id === "playerX") {
+        setChangeTurn(false);
+        setShowChange(true);
+        setPlayer("playerX")
+      } else {
+        setChangeTurn(true);
+        setShowChange(false);
+        setPlayer("playerO")
+      }
+    setStartingPage(false)
+    setMainPage(true)
+  }
 
+  useEffect(()=>{
+    setPosition(position)
+  },[position,setPosition])
+  
   const handleBoxClick = (event) => {
     if (changeTurn === false) {
-      const index = event.target.getAttribute("data-boxPosition");
-      position[index] = "X";
-      setPosition(position);
-      console.log(typeof position);
+      const index = event.target.getAttribute("data-boxPosition")
+      position[index] = "X"
+      // setPosition(position)
       event.currentTarget.id = "X";
       event.currentTarget.style.pointerEvents = "none";
-      setShowChange(false);
-      setChangeTurn(true);
+      setShowChange(false) 
+      setChangeTurn(true)
     } else {
-      const index = event.target.getAttribute("data-boxPosition");
-      position[index] = "O";
-      setPosition(position);
+      const index = event.target.getAttribute("data-boxPosition")
+      position[index] = "O"
+      // setPosition(position)
       event.currentTarget.id = "O";
       event.currentTarget.pointerEvents = "none";
-      setShowChange(true);
-      setChangeTurn(false);
+      setShowChange(true)
+      setChangeTurn(false)
     }
-    winningFunc();
-    drawFunc();
-  };
+    console.log(checkWin("X"))
+    console.log(checkWin("O"))
+    // TODO create currentPlayer 
+    //checkWin(currentPlayer)
+    isDraw();
+  }
 
   // All Possible Winning Combinations
   let winningCombinations = [
@@ -104,62 +116,81 @@ const GamePage = () => {
     [2, 4, 6],
   ];
 
-  let winningFunc = () => {
-    let boxes = boxesRef.current.children;
+  // let winningFunc = () => {
+  //   let boxes = boxesRef.current.children;
 
-    for (let a = 0; a <= 7; a++) {
-      let b = winningCombinations[a];
+  //   for (let a = 0; a <= 7; a++) {
+  //     let b = winningCombinations[a];
 
-      if (
-        boxes[b[0]].id === "" ||
-        boxes[b[1]].id === "" ||
-        boxes[b[2]].id === ""
-      ) {
-        continue;
-      } else if (
-        boxes[b[0]].id === "X" &&
-        boxes[b[1]].id === "X" &&
-        boxes[b[2]].id === "X"
-      ) {
-        setWinnerName(`Player X Win The Game!`);
+  //     if (
+  //       boxes[b[0]].id === "" ||
+  //       boxes[b[1]].id === "" ||
+  //       boxes[b[2]].id === ""
+  //     ) {
+  //       continue;
+  //     } else if (
+  //       boxes[b[0]].id === "X" &&
+  //       boxes[b[1]].id === "X" &&
+  //       boxes[b[2]].id === "X"
+  //     ) {
+  //       setWinnerName(`Player X Win The Game!`);
 
-        setMainPage(false);
-        setWinnerPage(true);
-      } else if (
-        boxes[b[0]].id === "O" &&
-        boxes[b[1]].id === "O" &&
-        boxes[b[2]].id === "O"
-      ) {
-        setWinnerName(`Player O Win The Game!`);
+  //       setMainPage(false);
+  //       setWinnerPage(true);
+  //     } else if (
+  //       boxes[b[0]].id === "O" &&
+  //       boxes[b[1]].id === "O" &&
+  //       boxes[b[2]].id === "O"
+  //     ) {
+  //       setWinnerName(`Player O Win The Game!`);
 
-        setMainPage(false);
-        setWinnerPage(true);
-      } else {
-        continue;
-      }
-    }
-  };
+  //       setMainPage(false);
+  //       setWinnerPage(true);
+  //     } else {
+  //       continue;
+  //     }
+  //   }
+  // };
 
   // Match Draw Function
-  let drawFunc = () => {
-    let boxes = boxesRef.current.children;
-    if (
-      boxes[0].id !== "" &&
-      boxes[1].id !== "" &&
-      boxes[2].id !== "" &&
-      boxes[3].id !== "" &&
-      boxes[4].id !== "" &&
-      boxes[5].id !== "" &&
-      boxes[6].id !== "" &&
-      boxes[7].id !== "" &&
-      boxes[8].id !== ""
-    ) {
-      setWinnerName(`Match Draw!`);
+  // let drawFunc = () => {
+  //   let boxes = boxesRef.current.children;
+  //   if (
+  //     boxes[0].id !== "" &&
+  //     boxes[1].id !== "" &&
+  //     boxes[2].id !== "" &&
+  //     boxes[3].id !== "" &&
+  //     boxes[4].id !== "" &&
+  //     boxes[5].id !== "" &&
+  //     boxes[6].id !== "" &&
+  //     boxes[7].id !== "" &&
+  //     boxes[8].id !== ""
+  //   ) {
+  //    ! setWinnerName(`Match Draw!`);
 
-      setMainPage(false);
-      setWinnerPage(true);
+  //     ! setMainPage(false);
+  //     ! setWinnerPage(true);
+  //   }
+  // };
+  function checkWin(currentPlayer) {
+    return winningCombinations.some(combination => {
+        // console.log(combination)
+      return combination.every(index => {
+          // console.log("every",position[index])
+          if (currentPlayer === position[index]) {
+            return true 
+          } else {
+              return false
+          }
+      })
+  })}
+  
+  
+  function isDraw() {
+      return [...position].every(cell => {
+        return cell.includes("X") || cell.includes("O")
+      })
     }
-  };
 
   const refresh = () => {
     window.location.reload();
@@ -168,8 +199,6 @@ const GamePage = () => {
   return (
     <>
       <title>Tic Tac Toe</title>
-      {/* // ! Commenting out as we are already importing with Sass */}
-      {/* <link rel="stylesheet" href="css/style.css" /> */}
       <div id="container">
         {/* Starting Page */}
         <div
