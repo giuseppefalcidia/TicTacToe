@@ -21,6 +21,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
+// !!! Environmental Variables
+let backendPort = process.env.REACT_APP_BACKEND_PORT;
+let frontendPort = process.env.REACT_APP_FRONTEND_PORT;
+
 const App = () => {
   // State hooks for login and sign up
   const [username, setUsername] = useState("");
@@ -98,7 +102,7 @@ const App = () => {
     };
 
     // todo - set path
-    fetch("http://localhost:3001/login", settings)
+    fetch(`http://localhost:${backendPort}/login`, settings)
       .then((response) => {
         if (response.ok) {
           console.log(response);
@@ -116,14 +120,19 @@ const App = () => {
       })
       .then((data) => {
         console.log("Successful login!");
+        console.log("!!!!!", data);
+
         // ? Successful tost message
         const loginSuccessful = () => {
           toast("Login successful!! Taking you to the game! 👾  🎲 ", {
             position: "top-center",
             autoClose: 2000,
             draggable: false,
+
             onClose: () =>
-              window.location.replace("http://localhost:3000/dashboard"),
+              window.location.replace(
+                `http://localhost:${frontendPort}/dashboard`
+              ),
           });
         };
 
@@ -181,7 +190,7 @@ const App = () => {
     };
 
     // todo - set path
-    fetch("http://localhost:3001/user", settings)
+    fetch(`http://localhost:${backendPort}/user`, settings)
       .then((response) => {
         if (response.ok) {
           console.log(response);
@@ -206,7 +215,8 @@ const App = () => {
               position: "top-center",
               autoClose: 2000,
               draggable: false,
-              onClose: () => window.location.replace("http://localhost:3000/"),
+              onClose: () =>
+                window.location.replace(`http://localhost:${frontendPort}/`),
             }
           );
         };
@@ -242,30 +252,30 @@ const App = () => {
   };
 
   const changePassword = (event) => {
-      event.preventDefault();
-      
-      const changePassword = {
-        // userId: props.currentUser._id,
-        newPassword: newPassword
-      }
+    event.preventDefault();
 
-      const jsonPasswordData = JSON.stringify(changePassword);
-    
-      const settings = {
-        method: "PATCH",
-        body: jsonPasswordData,
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
+    const changePassword = {
+      // userId: props.currentUser._id,
+      newPassword: newPassword,
+    };
 
-      fetch(`http://localhost:3000/user/${currentUser._id}`, settings)
-      .then(response => {
+    const jsonPasswordData = JSON.stringify(changePassword);
+
+    const settings = {
+      method: "PATCH",
+      body: jsonPasswordData,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    fetch(`http://localhost:${frontendPort}/user/${currentUser._id}`, settings)
+      .then((response) => {
         if (response.ok) {
-          return response.json()
+          return response.json();
         } else {
-          switch(response.status) {
-            case 404: 
+          switch (response.status) {
+            case 404:
               return response.json().then((err) => {
                 throw new Error(err.message);
               });
@@ -274,14 +284,16 @@ const App = () => {
           }
         }
       })
-      .then(data => {
+      .then((data) => {
         console.log(data);
         setNewPassword("");
       })
-      .catch(err => {
+      .catch((err) => {
         alert(err.message);
-      })
+      });
   };
+
+  console.log("CURRENT USER", currentUser.username);
 
   return (
     <SocketProvider id={id}>
@@ -322,10 +334,10 @@ const App = () => {
                 path="/dashboard"
                 exact
                 element={
-                  <Dashboard 
+                  <Dashboard
                     username={currentUser.username}
                     changePassword={changePassword}
-                    newPassword={newPassword} 
+                    newPassword={newPassword}
                     update={updateData}
                   />
                 }

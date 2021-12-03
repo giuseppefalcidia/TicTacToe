@@ -21,6 +21,8 @@ const Dashboard = (props) => {
 
   // console.log(props.newPassword)
 
+  console.log("Testing username");
+
   return (
     <div className="dashboard-container">
       <h1
@@ -28,7 +30,9 @@ const Dashboard = (props) => {
         // AOS
         data-aos="fade-right"
       >
-        Welcome <span className="dashboard-header-user">{props.username}</span>!
+        Welcome{" "}
+        <span className="dashboard-header-user">{props.username.username}</span>
+        !
       </h1>
 
       <button
@@ -47,12 +51,18 @@ const Dashboard = (props) => {
         </p>
       ) : (
         <div className="lets-play-container">
-          <p className="lets-play-paragraph" data-aos="fade-left">You want to Change your password?</p>
-          <form className="change-password-form" data-aos="fade-right" onSubmit={props.changePassword}>
+          <p className="lets-play-paragraph" data-aos="fade-left">
+            You want to Change your password?
+          </p>
+          <form
+            className="change-password-form"
+            data-aos="fade-right"
+            onSubmit={props.changePassword}
+          >
             <label id="change-password">Create new Password:</label>
-            <input 
-              type="text" 
-              id="change-password" 
+            <input
+              type="text"
+              id="change-password"
               name="newpassword"
               onChange={props.updateData}
               value={props.newPassword}
