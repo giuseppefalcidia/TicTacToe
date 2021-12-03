@@ -58,18 +58,18 @@ const GamePage = () => {
       setMainPage(false)
       setStartingPage(true)
     }
-  },[])
+  },[setPosition])
   
   
   const handleChoose = (event) => {
       if (event.currentTarget.id === "playerX") {
-        setChangeTurn(false);
+        // setChangeTurn(false);
         setShowChange(true);
-        setPlayer("playerX")
+        setPlayer("X")
       } else {
-        setChangeTurn(true);
+        // setChangeTurn(true);
         setShowChange(false);
-        setPlayer("playerO")
+        setPlayer("O")
       }
     setStartingPage(false)
     setMainPage(true)
@@ -80,14 +80,20 @@ const GamePage = () => {
   },[position,setPosition])
   
   const handleBoxClick = (event) => {
-    if (changeTurn === false) {
+    if (player === "X") {
       const index = event.target.getAttribute("data-boxPosition")
       position[index] = "X"
       // setPosition(position)
       event.currentTarget.id = "X";
       event.currentTarget.style.pointerEvents = "none";
       setShowChange(false) 
-      setChangeTurn(true)
+      // setChangeTurn(true)
+      if (checkWin(player)){
+        setWinnerName(`Player X Win The Game!`);
+        setMainPage(false);
+        setWinnerPage(true);
+      }
+      setPlayer("O")
     } else {
       const index = event.target.getAttribute("data-boxPosition")
       position[index] = "O"
@@ -95,13 +101,19 @@ const GamePage = () => {
       event.currentTarget.id = "O";
       event.currentTarget.pointerEvents = "none";
       setShowChange(true)
-      setChangeTurn(false)
+      // setChangeTurn(false)
+      if (checkWin(player)){
+        setWinnerName(`Player O Win The Game!`);
+        setMainPage(false);
+        setWinnerPage(true);
+      }
+      setPlayer("X")
     }
-    console.log(checkWin("X"))
-    console.log(checkWin("O"))
-    // TODO create currentPlayer 
-    //checkWin(currentPlayer)
-    isDraw();
+    if (isDraw()) {
+      setWinnerName(`Match Draw!`);
+      setMainPage(false);
+      setWinnerPage(true);
+    }
   }
 
   // All Possible Winning Combinations
@@ -116,62 +128,7 @@ const GamePage = () => {
     [2, 4, 6],
   ];
 
-  // let winningFunc = () => {
-  //   let boxes = boxesRef.current.children;
-
-  //   for (let a = 0; a <= 7; a++) {
-  //     let b = winningCombinations[a];
-
-  //     if (
-  //       boxes[b[0]].id === "" ||
-  //       boxes[b[1]].id === "" ||
-  //       boxes[b[2]].id === ""
-  //     ) {
-  //       continue;
-  //     } else if (
-  //       boxes[b[0]].id === "X" &&
-  //       boxes[b[1]].id === "X" &&
-  //       boxes[b[2]].id === "X"
-  //     ) {
-  //       setWinnerName(`Player X Win The Game!`);
-
-  //       setMainPage(false);
-  //       setWinnerPage(true);
-  //     } else if (
-  //       boxes[b[0]].id === "O" &&
-  //       boxes[b[1]].id === "O" &&
-  //       boxes[b[2]].id === "O"
-  //     ) {
-  //       setWinnerName(`Player O Win The Game!`);
-
-  //       setMainPage(false);
-  //       setWinnerPage(true);
-  //     } else {
-  //       continue;
-  //     }
-  //   }
-  // };
-
-  // Match Draw Function
-  // let drawFunc = () => {
-  //   let boxes = boxesRef.current.children;
-  //   if (
-  //     boxes[0].id !== "" &&
-  //     boxes[1].id !== "" &&
-  //     boxes[2].id !== "" &&
-  //     boxes[3].id !== "" &&
-  //     boxes[4].id !== "" &&
-  //     boxes[5].id !== "" &&
-  //     boxes[6].id !== "" &&
-  //     boxes[7].id !== "" &&
-  //     boxes[8].id !== ""
-  //   ) {
-  //    ! setWinnerName(`Match Draw!`);
-
-  //     ! setMainPage(false);
-  //     ! setWinnerPage(true);
-  //   }
-  // };
+  
   function checkWin(currentPlayer) {
     return winningCombinations.some(combination => {
         // console.log(combination)
