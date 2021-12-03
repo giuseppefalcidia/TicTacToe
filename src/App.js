@@ -23,8 +23,8 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 // ? Environmental Variables
-let backendPort = process.env.REACT_APP_BACKEND_PORT;
-let frontendPort = process.env.REACT_APP_FRONTEND_PORT;
+let backendURL = process.env.REACT_APP_BACKEND_URL;
+let frontendURL = process.env.REACT_APP_FRONTEND_URL;
 
 const App = () => {
   // State hooks for login and sign up
@@ -94,7 +94,7 @@ const App = () => {
     };
 
     // todo - set path
-    fetch(`http://localhost:${backendPort}/login`, settings)
+    fetch(`${backendURL}/login`, settings)
       .then((response) => {
         if (response.ok) {
           console.log(response);
@@ -131,9 +131,7 @@ const App = () => {
 
               // !!! currentUser state is holding until dashboard renders
               onClose: () =>
-                window.location.replace(
-                  `http://localhost:${frontendPort}/dashboard`
-                ),
+                window.location.replace(`${frontendURL}/dashboard`),
             }
           );
           // console.log("!!!!!!!!", currentUser);
@@ -195,7 +193,7 @@ const App = () => {
     };
 
     // todo - set path
-    fetch(`http://localhost:${backendPort}/user`, settings)
+    fetch(`${backendURL}/user`, settings)
       .then((response) => {
         if (response.ok) {
           console.log(response);
@@ -220,8 +218,7 @@ const App = () => {
               position: "top-center",
               autoClose: 2000,
               draggable: false,
-              onClose: () =>
-                window.location.replace(`http://localhost:${frontendPort}/`),
+              onClose: () => window.location.replace(`${frontendURL}`),
             }
           );
         };
@@ -274,7 +271,7 @@ const App = () => {
       },
     };
 
-    fetch(`http://localhost:${frontendPort}/user/${currentUser._id}`, settings)
+    fetch(`${frontendURL}/user/${currentUser._id}`, settings)
       .then((response) => {
         if (response.ok) {
           return response.json();
