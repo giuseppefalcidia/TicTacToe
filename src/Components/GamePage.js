@@ -13,15 +13,15 @@ import "aos/dist/aos.css";
 
 const GamePage = () => {
   const [winnerName,setWinnerName] = useState("")
-  const [changeTurn,setChangeTurn] = useState(true)
+  // const [changeTurn,setChangeTurn] = useState(true)
   const [showChange,setShowChange] = useState(null)
   const [startingPage,setStartingPage] = useState(false)
   const [mainPage,setMainPage] = useState(true)
   const [winnerPage, setWinnerPage] = useState(false)
   const socket = useSocket()
-  // const [position,setPosition] = useState(["","","","","","","","",""])
+  const [position,setPosition] = useState(["","","","","","","","",""])
 
-  const [position,setPosition] = useLocalStorage("position",["","","","","","","","",""])
+  // const [position,setPosition] = useLocalStorage("position",["","","","","","","","",""])
   const [player,setPlayer] = useLocalStorage("player")
 
   // AOS functionality
@@ -92,6 +92,7 @@ const GamePage = () => {
         setWinnerName(`Player X Win The Game!`);
         setMainPage(false);
         setWinnerPage(true);
+        return
       }
       setPlayer("O")
     } else {
@@ -106,6 +107,7 @@ const GamePage = () => {
         setWinnerName(`Player O Win The Game!`);
         setMainPage(false);
         setWinnerPage(true);
+        return
       }
       setPlayer("X")
     }
@@ -199,7 +201,21 @@ const GamePage = () => {
             />
           </div>
           <div id="gameBoard" ref={boxesRef}>
-            <div
+            {console.log(position)}
+            {/* TODO try to refactor
+            {position && position.map((box,index) => {
+                return (<div
+              className="boxes"
+              data-boxPosition={index}
+              onClick={(event) => handleBoxClick(event)}
+            >
+              {box[index] !== "" ? (box[index] === "X" ? ex : circle) : null}
+            </div>
+             )
+            })} */}
+            {position && 
+             <>
+             <div
               className="boxes"
               data-boxPosition="0"
               onClick={(event) => handleBoxClick(event)}
@@ -261,7 +277,9 @@ const GamePage = () => {
               onClick={(event) => handleBoxClick(event)}
             >
               {position[8] !== "" ? (position[8] === "X" ? ex : circle) : null}
-            </div>
+            </div> 
+            </>
+            }
           </div>
         </div>
         {/* Winner Page */}
