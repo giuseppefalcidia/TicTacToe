@@ -42,7 +42,11 @@ const LandingPage = (props) => {
         <div className="login-container">
           <h2 className="user-heading">Already a User?</h2>
 
-          <form className="login-form" onSubmit={RedirectToDashboard}>
+          <form
+            className="login-form"
+            username={props.currentUser}
+            onSubmit={RedirectToDashboard}
+          >
             <h3 className="login-heading">Login Here</h3>
 
             <label>Username</label>
