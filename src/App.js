@@ -71,6 +71,7 @@ const App = () => {
     }
   };
 
+  console.log(newPassword)
   // ! LOGIN functionality
   // todo - POST and FETCH request for login - connect to database and setup correct path
   // Submit login data function - updated onChange..
