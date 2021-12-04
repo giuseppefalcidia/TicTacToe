@@ -4,16 +4,12 @@ import GamePage from "./Components/GamePage";
 import SignUp from "./Components/SignUp";
 import Dashboard from "./Components/Dashboard";
 import { SocketProvider } from "./contexts/SocketProvider";
+import { GameProvider } from "./contexts/GameProvider";
 
 import {
   BrowserRouter as Router,
   Redirect,
   Route,
-  Routes,
-  Link,
-  Navigate,
-  useNavigate,
-  useHistory, 
   Switch
 } from "react-router-dom";
 
@@ -22,6 +18,10 @@ import "./Styling/App.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
+
+// ? Environmental Variables
+let backendURL = process.env.REACT_APP_BACKEND_URL;
+let frontendURL = process.env.REACT_APP_FRONTEND_URL;
 
 const App = () => {
   // State hooks for login and sign up
@@ -32,13 +32,6 @@ const App = () => {
   // const history = useHistory();
   // TODO Marc create a useState or similar with the ID to pass to the SocketProvider
   const id = "test";
-
-  // ! Adding manually as I could not get it to merge
-  // let history = useNavigate();
-  // ! - How to implement?
-  // const redirectToDashboard = () => {
-  //   history.push("/dashboard");
-  // };
 
   // todo - Current User Object
   const [currentUser, setCurrentUser] = useState({
@@ -71,14 +64,11 @@ const App = () => {
     }
   };
 
-  console.log(newPassword)
-  // ! LOGIN functionality
-  // todo - POST and FETCH request for login - connect to database and setup correct path
+  // ? LOGIN functionality
   // Submit login data function - updated onChange..
   const submitLoginData = (event) => {
-    // event.preventDefault();
+    event.preventDefault();
 
-    // ! Should I split into different variables for login and sign up
     // Collected Data from update data...
     const loginData = {
       username: username,
@@ -86,8 +76,8 @@ const App = () => {
     };
 
     //  For testing...
-    console.log(loginData.username);
-    console.log(loginData.password);
+    // console.log(loginData.username);
+    // console.log(loginData.password);
 
     // todo - uncomment once set up with db
     const jsonLoginData = JSON.stringify(loginData);
@@ -102,7 +92,7 @@ const App = () => {
     };
 
     // todo - set path
-    fetch("http://localhost:3001/login", settings)
+    fetch(`${backendURL}/login`, settings)
       .then((response) => {
         if (response.ok) {
           console.log(response);
@@ -119,7 +109,9 @@ const App = () => {
         }
       })
       .then((data) => {
-        console.log("Successful login!");
+        // console.log("Successful login!");
+        // console.log("!!!!!", data);
+
         // ? Successful tost message
         const loginSuccessful = () => {
           toast("Login successful!! Taking you to the game! 👾  🎲 ", {
@@ -158,7 +150,6 @@ const App = () => {
         setPassword("");
       });
   };
-  console.log("!", currentUser)
 
   // !! ======
 
@@ -189,7 +180,7 @@ const App = () => {
     };
 
     // todo - set path
-    fetch("http://localhost:3001/user", settings)
+    fetch(`${backendURL}/user`, settings)
       .then((response) => {
         if (response.ok) {
           console.log(response);
@@ -214,7 +205,7 @@ const App = () => {
               position: "top-center",
               autoClose: 2000,
               draggable: false,
-              onClose: () => window.location.replace("http://localhost:3000/"),
+              onClose: () => window.location.replace(`${frontendURL}`),
             }
           );
         };
@@ -267,13 +258,13 @@ const App = () => {
         }
       }
 
-      fetch(`http://localhost:3001/user/${currentUser._id}`, settings)
-      .then(response => {
+      fetch(`${frontendURL}/user/${currentUser._id}`, settings)
+      .then((response) => {
         if (response.ok) {
-          return response.json()
+          return response.json();
         } else {
-          switch(response.status) {
-            case 404: 
+          switch (response.status) {
+            case 404:
               return response.json().then((err) => {
                 throw new Error(err.message);
               });
@@ -286,78 +277,80 @@ const App = () => {
         console.log("Updated:", data);
         setNewPassword("");
       })
-      .catch(err => {
+      .catch((err) => {
         alert(err.message);
-      })
+      });
   };
 
   return (
     <SocketProvider id={id}>
-      <Router>
-        <div className="app-container">
-          <main className="main-container">
-            <Switch>
-              {/* <LandingPage /> */}
-              <Route exact path="/">
-              {currentUser.username.length > 0 ? 
-              <Redirect to="/dashboard" /> 
-              : <LandingPage
-                    submitLoginData={submitLoginData}
-                    updateData={updateData}
-                    username={username}
-                    password={password}
-                    currentUser={currentUser}
-                />}
-              </Route>
-              {/* SignUp page */}
-              <Route
-                path="/signup"
-                exact
-                render={() =>
-                  <SignUp
-                    addLoginData={addLoginData}
-                    updateData={updateData}
-                    username={username}
-                    password={password}
-                    email={email}
-                  />
-                }
-              />
+      <GameProvider id={id}>
+        <Router>
+          <div className="app-container">
+            <main className="main-container">
+              <Switch>
+                {/* <LandingPage /> */}
+                <Route exact path="/">
+                {currentUser.username.length > 0 ? 
+                <Redirect to="/dashboard" /> 
+                : <LandingPage
+                      submitLoginData={submitLoginData}
+                      updateData={updateData}
+                      username={username}
+                      password={password}
+                      currentUser={currentUser}
+                  />}
+                </Route>
+                {/* SignUp page */}
+                <Route
+                  path="/signup"
+                  exact
+                  render={() =>
+                    <SignUp
+                      addLoginData={addLoginData}
+                      updateData={updateData}
+                      username={username}
+                      password={password}
+                      email={email}
+                    />
+                  }
+                />
 
-              <Route
-                path="/dashboard"
-                exact
-                render={() =>
-                  <Dashboard 
-                    username={currentUser.username}
-                    changePassword={changePassword}
-                    newPassword={newPassword} 
-                    update={updateData}
-                  />
-                }
-              />
+                <Route
+                  path="/dashboard"
+                  exact
+                  render={() =>
+                    <Dashboard 
+                      username={currentUser.username}
+                      changePassword={changePassword}
+                      newPassword={newPassword} 
+                      update={updateData}
+                    />
+                  }
+                />
 
-              {/* Game page */}
-              <Route path="/gamepage" exact render={() => <GamePage />} />
+                {/* Game page */}
+                <Route path="/gamepage" exact render={() => <GamePage />} />
 
-              {/*  Fallback path - directs user back to login page */}
-              <Route
-                path="*"
-                exact
-                render={() => 
-                  <LandingPage
-                    submitLoginData={submitLoginData}
-                    updateData={updateData}
-                    username={username}
-                    password={password}
-                    currentUser={currentUser}
-                  />
-                }
-              />
-            </Switch>
-          </main>
-        </div>
-      </Router>
+                {/*  Fallback path - directs user back to login page */}
+                <Route
+                  path="*"
+                  exact
+                  render={() => 
+                    <LandingPage
+                      submitLoginData={submitLoginData}
+                      updateData={updateData}
+                      username={username}
+                      password={password}
+                      currentUser={currentUser}
+                    />
+                  }
+                />
+              </Switch>
+            </main>
+          </div>
+        </Router>
+      </GameProvider>
     </SocketProvider>
   );
 };

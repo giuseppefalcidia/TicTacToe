@@ -2,7 +2,9 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch, faTimes } from "@fortawesome/free-solid-svg-icons";
 
-import { useSocket } from "../contexts/SocketProvider";
+// import { useSocket } from "../contexts/SocketProvider";
+import { useGame } from "../contexts/GameProvider";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 import "../Styling/game-page.scss";
 
@@ -11,86 +13,122 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 
 const GamePage = () => {
-  const [winnerName, setWinnerName] = useState("");
-  const [changeTurn, setChangeTurn] = useState(null);
-  const [showChange, setShowChange] = useState(false);
-  const [startingPage, setStartingPage] = useState(true);
-  const [mainPage, setMainPage] = useState(false);
-  const [winnerPage, setWinnerPage] = useState(false);
-  const socket = useSocket();
-  const [position, setPosition] = useState([
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-  ]);
+  const [winnerName,setWinnerName] = useState("")
+  // const [changeTurn,setChangeTurn] = useState(true)
+  const [showChange,setShowChange] = useState(null)
+  const [startingPage,setStartingPage] = useState(false)
+  const [mainPage,setMainPage] = useState(true)
+  const [winnerPage, setWinnerPage] = useState(false)
+  // const socket = useSocket()
+  
+  
+  // const [position,setPosition] = useState(["","","","","","","","",""])
+  // const [position,setPosition] = useLocalStorage("position",["","","","","","","","",""])
+  const {sendPosition,position} = useGame()  
+
+  
+  const [player,setPlayer] = useLocalStorage("player")
+
+  // console.log(socket.id)
 
   // AOS functionality
   useEffect(() => {
     Aos.init({ duration: 1000, once: true });
   }, []);
 
-  const recievePosition = useCallback(
-    ({ position }) => {
-      setPosition(position);
-    },
-    [setPosition]
-  );
+  // Added to Game provider
+  // const recievePosition = useCallback(
+  //   ({ position }) => {
+  //     setPosition(position);
+  //   },
+  //   [setPosition]
+  // );
 
-  useEffect(() => {
-    if (socket == null) return;
+  // useEffect(() => {
+  //   if (socket == null) return;
 
-    socket.on("receive-position", recievePosition);
+  //   socket.on("receive-position", recievePosition);
 
-    return () => socket.off("receive-message");
-  }, [socket, recievePosition]);
+  //   return () => socket.off("receive-message");
+  // }, [socket, recievePosition]);
 
   const circle = (
     <FontAwesomeIcon className="circle-element" icon={faCircleNotch} />
   );
   const ex = <FontAwesomeIcon className="ex-element" icon={faTimes} />;
 
+  // TODO Check if with the refactor this ref is needed
   const boxesRef = useRef();
 
+  // useLocal for development purposes //! delete afterwards
+  // useEffect(()=>{
+  //   const localPosition = localStorage.getItem("tictactoe-player")
+  //   setPosition(localPosition)
+  //   if (localStorage.getItem("tictactoe-player") === "undefined") {
+  //     setMainPage(false)
+  //     setStartingPage(true)
+  //   }
+  // },[setPosition])
+  
+  
   const handleChoose = (event) => {
-    if (event.currentTarget.id === "playerX") {
-      setChangeTurn(false);
-      setShowChange(true);
-    } else {
-      setChangeTurn(true);
-      setShowChange(false);
-    }
-    setStartingPage(false);
-    setMainPage(true);
-  };
+      if (event.currentTarget.id === "playerX") {
+        // setChangeTurn(false);
+        setShowChange(true);
+        setPlayer("X")
+      } else {
+        // setChangeTurn(true);
+        setShowChange(false);
+        setPlayer("O")
+      }
+    setStartingPage(false)
+    setMainPage(true)
+  }
 
+  // useEffect(()=>{
+  //   setPosition(position)
+  // },[position,setPosition])
+  
   const handleBoxClick = (event) => {
-    if (changeTurn === false) {
-      const index = event.target.getAttribute("data-boxPosition");
-      position[index] = "X";
-      setPosition(position);
-      console.log(typeof position);
+    if (player === "X") {
+      const index = event.target.getAttribute("data-boxPosition")
+      sendPosition(index,player)
+      // position[index] = "X"
+      // setPosition(position)
       event.currentTarget.id = "X";
       event.currentTarget.style.pointerEvents = "none";
-      setShowChange(false);
-      setChangeTurn(true);
+      setShowChange(false) 
+      // setChangeTurn(true)
+      if (checkWin(player)){
+        setWinnerName(`Player X Win The Game!`);
+        setMainPage(false);
+        setWinnerPage(true);
+        return
+      }
+      setPlayer("O")
     } else {
-      const index = event.target.getAttribute("data-boxPosition");
-      position[index] = "O";
-      setPosition(position);
+      const index = event.target.getAttribute("data-boxPosition")
+      sendPosition(index,player)
+      // position[index] = "O"
+      // setPosition(position)
       event.currentTarget.id = "O";
       event.currentTarget.pointerEvents = "none";
-      setShowChange(true);
-      setChangeTurn(false);
+      setShowChange(true)
+      // setChangeTurn(false)
+      if (checkWin(player)){
+        setWinnerName(`Player O Win The Game!`);
+        setMainPage(false);
+        setWinnerPage(true);
+        return
+      }
+      setPlayer("X")
     }
-    winningFunc();
-    drawFunc();
-  };
+    if (isDraw()) {
+      setWinnerName(`Match Draw!`);
+      setMainPage(false);
+      setWinnerPage(true);
+    }
+  }
 
   // All Possible Winning Combinations
   let winningCombinations = [
@@ -104,62 +142,26 @@ const GamePage = () => {
     [2, 4, 6],
   ];
 
-  let winningFunc = () => {
-    let boxes = boxesRef.current.children;
-
-    for (let a = 0; a <= 7; a++) {
-      let b = winningCombinations[a];
-
-      if (
-        boxes[b[0]].id === "" ||
-        boxes[b[1]].id === "" ||
-        boxes[b[2]].id === ""
-      ) {
-        continue;
-      } else if (
-        boxes[b[0]].id === "X" &&
-        boxes[b[1]].id === "X" &&
-        boxes[b[2]].id === "X"
-      ) {
-        setWinnerName(`Player X Win The Game!`);
-
-        setMainPage(false);
-        setWinnerPage(true);
-      } else if (
-        boxes[b[0]].id === "O" &&
-        boxes[b[1]].id === "O" &&
-        boxes[b[2]].id === "O"
-      ) {
-        setWinnerName(`Player O Win The Game!`);
-
-        setMainPage(false);
-        setWinnerPage(true);
-      } else {
-        continue;
-      }
+  
+  function checkWin(currentPlayer) {
+    return winningCombinations.some(combination => {
+        // console.log(combination)
+      return combination.every(index => {
+          // console.log("every",position[index])
+          if (currentPlayer === position[index]) {
+            return true 
+          } else {
+              return false
+          }
+      })
+  })}
+  
+  
+  function isDraw() {
+      return [...position].every(cell => {
+        return cell.includes("X") || cell.includes("O")
+      })
     }
-  };
-
-  // Match Draw Function
-  let drawFunc = () => {
-    let boxes = boxesRef.current.children;
-    if (
-      boxes[0].id !== "" &&
-      boxes[1].id !== "" &&
-      boxes[2].id !== "" &&
-      boxes[3].id !== "" &&
-      boxes[4].id !== "" &&
-      boxes[5].id !== "" &&
-      boxes[6].id !== "" &&
-      boxes[7].id !== "" &&
-      boxes[8].id !== ""
-    ) {
-      setWinnerName(`Match Draw!`);
-
-      setMainPage(false);
-      setWinnerPage(true);
-    }
-  };
 
   const refresh = () => {
     window.location.reload();
@@ -168,8 +170,6 @@ const GamePage = () => {
   return (
     <>
       <title>Tic Tac Toe</title>
-      {/* // ! Commenting out as we are already importing with Sass */}
-      {/* <link rel="stylesheet" href="css/style.css" /> */}
       <div id="container">
         {/* Starting Page */}
         <div
@@ -213,7 +213,21 @@ const GamePage = () => {
             />
           </div>
           <div id="gameBoard" ref={boxesRef}>
-            <div
+            {console.log(position)}
+            {/* TODO try to refactor
+            {position && position.map((box,index) => {
+                return (<div
+              className="boxes"
+              data-boxPosition={index}
+              onClick={(event) => handleBoxClick(event)}
+            >
+              {box[index] !== "" ? (box[index] === "X" ? ex : circle) : null}
+            </div>
+             )
+            })} */}
+            {position && 
+             <>
+             <div
               className="boxes"
               data-boxPosition="0"
               onClick={(event) => handleBoxClick(event)}
@@ -275,7 +289,9 @@ const GamePage = () => {
               onClick={(event) => handleBoxClick(event)}
             >
               {position[8] !== "" ? (position[8] === "X" ? ex : circle) : null}
-            </div>
+            </div> 
+            </>
+            }
           </div>
         </div>
         {/* Winner Page */}
