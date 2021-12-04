@@ -10,11 +10,6 @@ import {
   BrowserRouter as Router,
   Redirect,
   Route,
-  Routes,
-  Link,
-  Navigate,
-  useNavigate,
-  useHistory, 
   Switch
 } from "react-router-dom";
 
@@ -119,25 +114,13 @@ const App = () => {
 
         // ? Successful tost message
         const loginSuccessful = () => {
-          // !!! TESTING so we can pass currentUser state to dashboard
-          setCurrentUser(data);
-          console.log(username);
-          console.log(currentUser.username);
-          console.log("!!!!!!!!", currentUser);
-
-          toast(
-            ` ${username} Login successful!! Taking you to the game! 👾  🎲 `,
-            {
-              position: "top-center",
-              autoClose: 2000,
-              draggable: false,
-
-              // !!! currentUser state is holding until dashboard renders
-              onClose: () =>
-                window.location.replace(`${frontendURL}/dashboard`),
-            }
-          );
-          // console.log("!!!!!!!!", currentUser);
+          toast("Login successful!! Taking you to the game! 👾  🎲 ", {
+            position: "top-center",
+            autoClose: 2000,
+            draggable: false,
+            // onClose: () =>
+            //   window.location.replace("http://localhost:3000/dashboard"),
+          });
         };
 
         setCurrentUser(data);
@@ -167,9 +150,6 @@ const App = () => {
         setPassword("");
       });
   };
-  console.log("!", currentUser)
-
-  console.log("???????????", currentUser);
 
   // !! ======
 
@@ -261,24 +241,24 @@ const App = () => {
   };
 
   const changePassword = (event) => {
-    event.preventDefault();
+      event.preventDefault();
+      
+      const changePassword = {
+        // userId: currentUser._id,
+        newPassword: newPassword
+      }
 
-    const changePassword = {
-      // userId: props.currentUser._id,
-      newPassword: newPassword,
-    };
+      const jsonPasswordData = JSON.stringify(changePassword);
+    
+      const settings = {
+        method: "PATCH",
+        body: jsonPasswordData,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
 
-    const jsonPasswordData = JSON.stringify(changePassword);
-
-    const settings = {
-      method: "PATCH",
-      body: jsonPasswordData,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    fetch(`${frontendURL}/user/${currentUser._id}`, settings)
+      fetch(`${frontendURL}/user/${currentUser._id}`, settings)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -293,8 +273,8 @@ const App = () => {
           }
         }
       })
-      .then((data) => {
-        console.log(data);
+      .then(data => {
+        console.log("Updated:", data);
         setNewPassword("");
       })
       .catch((err) => {
@@ -308,26 +288,24 @@ const App = () => {
         <Router>
           <div className="app-container">
             <main className="main-container">
-              <Routes>
+              <Switch>
                 {/* <LandingPage /> */}
-                <Route
-                  path="/"
-                  exact
-                  element={
-                    <LandingPage
+                <Route exact path="/">
+                {currentUser.username.length > 0 ? 
+                <Redirect to="/dashboard" /> 
+                : <LandingPage
                       submitLoginData={submitLoginData}
                       updateData={updateData}
                       username={username}
                       password={password}
                       currentUser={currentUser}
-                    />
-                  }
-                />
+                  />}
+                </Route>
                 {/* SignUp page */}
                 <Route
                   path="/signup"
                   exact
-                  element={
+                  render={() =>
                     <SignUp
                       addLoginData={addLoginData}
                       updateData={updateData}
@@ -341,25 +319,24 @@ const App = () => {
                 <Route
                   path="/dashboard"
                   exact
-                  element={
-                    <Dashboard
-                      // username={currentUser.username}
+                  render={() =>
+                    <Dashboard 
+                      username={currentUser.username}
                       changePassword={changePassword}
-                      newPassword={newPassword}
+                      newPassword={newPassword} 
                       update={updateData}
-                      currentUser={currentUser}
                     />
                   }
                 />
 
                 {/* Game page */}
-                <Route path="/gamepage" exact element={<GamePage />} />
+                <Route path="/gamepage" exact render={() => <GamePage />} />
 
                 {/*  Fallback path - directs user back to login page */}
                 <Route
                   path="*"
                   exact
-                  element={
+                  render={() => 
                     <LandingPage
                       submitLoginData={submitLoginData}
                       updateData={updateData}
@@ -369,7 +346,7 @@ const App = () => {
                     />
                   }
                 />
-              </Routes>
+              </Switch>
             </main>
           </div>
         </Router>

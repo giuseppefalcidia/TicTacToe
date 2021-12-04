@@ -18,11 +18,7 @@ const Dashboard = (props) => {
   useEffect(() => {
     Aos.init({ duration: 1000, once: true });
   }, []);
-
-  // console.log(props.newPassword)
-
-  console.log("********* USER:", props.currentUser);
-
+  
   return (
     <div className="dashboard-container">
       <h1
@@ -66,7 +62,7 @@ const Dashboard = (props) => {
               type="text"
               id="change-password"
               name="newpassword"
-              onChange={props.updateData}
+              onChange={props.update}
               // value={props.newPassword}
             ></input>
             <button className="confirm-button">confirm</button>
