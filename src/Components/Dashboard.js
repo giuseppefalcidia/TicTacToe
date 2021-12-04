@@ -19,8 +19,9 @@ const Dashboard = (props) => {
     Aos.init({ duration: 1000, once: true });
   }, []);
 
-  // console.log(props.newPassword)
-
+  console.log(props.username)
+  console.log(props.newPassword)
+  
   return (
     <div className="dashboard-container">
       <h1
@@ -55,13 +56,13 @@ const Dashboard = (props) => {
               id="change-password" 
               name="newpassword"
               onChange={props.updateData}
-              value={props.newPassword}
+              // value={props.newPassword}
             ></input>
             <button className="confirm-button">confirm</button>
           </form>
         </div>
       )}
-
+        
       <Link to="/gamepage" alt="Link to start game.">
         <button
           className="start-game-button"
