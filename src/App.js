@@ -10,10 +10,7 @@ import {
   BrowserRouter as Router,
   Redirect,
   Route,
-  Routes,
-  Link,
-  Navigate,
-  useNavigate,
+  Switch,
 } from "react-router-dom";
 
 import "./Styling/App.scss";
@@ -32,6 +29,7 @@ const App = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  // const history = useHistory();
   // TODO Marc create a useState or similar with the ID to pass to the SocketProvider
   const id = "test";
 
@@ -116,31 +114,21 @@ const App = () => {
 
         // ? Successful tost message
         const loginSuccessful = () => {
-          // !!! TESTING so we can pass currentUser state to dashboard
-          setCurrentUser(data);
-          console.log(username);
-          console.log(currentUser.username);
-          console.log("!!!!!!!!", currentUser);
-
-          toast(
-            `${username}, Login successful!! Taking you to the game! 👾  🎲 `,
-            {
-              position: "top-center",
-              autoClose: 2000,
-              draggable: false,
-
-              // !!! currentUser state is holding until dashboard renders
-              onClose: () =>
-                window.location.replace(`${frontendURL}/dashboard`),
-            }
-          );
-          // console.log("!!!!!!!!", currentUser);
+          toast("Login successful!! Taking you to the game! 👾  🎲 ", {
+            position: "top-center",
+            autoClose: 2000,
+            draggable: false,
+            // onClose: () =>
+            //   window.location.replace("http://localhost:3000/dashboard"),
+          });
         };
 
         setCurrentUser(data);
-        loginSuccessful();
         setUsername("");
         setPassword("");
+        // history.push("/dashboard");
+        loginSuccessful();
+
         // if (data.token) {
         //  navigate('/dashboard')
         // }
@@ -155,14 +143,13 @@ const App = () => {
           });
         };
 
+        console.log(err.message);
         loginFailed();
         // alert(err.message);
         setUsername("");
         setPassword("");
       });
   };
-
-  console.log("???????????", currentUser);
 
   // !! ======
 
@@ -257,7 +244,7 @@ const App = () => {
     event.preventDefault();
 
     const changePassword = {
-      // userId: props.currentUser._id,
+      // userId: currentUser._id,
       newPassword: newPassword,
     };
 
@@ -287,7 +274,7 @@ const App = () => {
         }
       })
       .then((data) => {
-        console.log(data);
+        console.log("Updated:", data);
         setNewPassword("");
       })
       .catch((err) => {
@@ -301,12 +288,12 @@ const App = () => {
         <Router>
           <div className="app-container">
             <main className="main-container">
-              <Routes>
+              <Switch>
                 {/* <LandingPage /> */}
-                <Route
-                  path="/"
-                  exact
-                  element={
+                <Route exact path="/">
+                  {currentUser.username.length > 0 ? (
+                    <Redirect to="/dashboard" />
+                  ) : (
                     <LandingPage
                       submitLoginData={submitLoginData}
                       updateData={updateData}
@@ -314,13 +301,13 @@ const App = () => {
                       password={password}
                       currentUser={currentUser}
                     />
-                  }
-                />
+                  )}
+                </Route>
                 {/* SignUp page */}
                 <Route
                   path="/signup"
                   exact
-                  element={
+                  render={() => (
                     <SignUp
                       addLoginData={addLoginData}
                       updateData={updateData}
@@ -328,31 +315,30 @@ const App = () => {
                       password={password}
                       email={email}
                     />
-                  }
+                  )}
                 />
 
                 <Route
                   path="/dashboard"
                   exact
-                  element={
+                  render={() => (
                     <Dashboard
-                      // username={currentUser.username}
+                      username={currentUser.username}
                       changePassword={changePassword}
                       newPassword={newPassword}
                       update={updateData}
-                      currentUser={currentUser}
                     />
-                  }
+                  )}
                 />
 
                 {/* Game page */}
-                <Route path="/gamepage" exact element={<GamePage />} />
+                <Route path="/gamepage" exact render={() => <GamePage />} />
 
                 {/*  Fallback path - directs user back to login page */}
                 <Route
                   path="*"
                   exact
-                  element={
+                  render={() => (
                     <LandingPage
                       submitLoginData={submitLoginData}
                       updateData={updateData}
@@ -360,9 +346,9 @@ const App = () => {
                       password={password}
                       currentUser={currentUser}
                     />
-                  }
+                  )}
                 />
-              </Routes>
+              </Switch>
             </main>
           </div>
         </Router>
