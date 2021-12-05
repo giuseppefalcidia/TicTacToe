@@ -123,7 +123,7 @@ const App = () => {
           console.log("!!!!!!!!", currentUser);
 
           toast(
-            ` ${username} Login successful!! Taking you to the game! 👾  🎲 `,
+            `${username}, Login successful!! Taking you to the game! 👾  🎲 `,
             {
               position: "top-center",
               autoClose: 2000,
