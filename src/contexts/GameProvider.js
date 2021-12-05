@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useCallback } from 'react'
-import useLocalStorage from '../hooks/useLocalStorage'
+import React, { useContext, useEffect, useCallback, useState } from 'react'
+// import useLocalStorage from '../hooks/useLocalStorage'
 // import { useContacts } from './ContactsProvider'; //? For having friends to play with?
 import { useSocket } from './SocketProvider';
 
@@ -12,7 +12,7 @@ export function useGame() {
 
 // ? is id needed?
 export function GameProvider({ id, children }) {
-    const [position, setPosition] = useLocalStorage('position', ["","","","","","","","",""])
+    const [position, setPosition] = useState('position', ["","","","","","","","",""])
 
     const socket = useSocket()
 
@@ -23,8 +23,11 @@ export function GameProvider({ id, children }) {
 
     const updatePosition = useCallback(({ index, player }) => {
         console.log(index,player)
-        position[index] = player
-        setPosition(position)
+        if (position !== null && player !== null) {
+          position[index] = player
+          setPosition(position)
+        }
+        
         // setPosition(newPosition[position] = player)
     },[setPosition])
 
@@ -38,7 +41,6 @@ export function GameProvider({ id, children }) {
 
     function sendPosition(index, player) {
             socket.emit('send-position', { index, player })
-
             updatePosition({ index, player })
     }
     const value = {

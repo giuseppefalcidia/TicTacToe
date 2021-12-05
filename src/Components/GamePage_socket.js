@@ -22,9 +22,9 @@ const GamePage = () => {
   // const socket = useSocket()
   
   
-  const [position,setPosition] = useState(["","","","","","","","",""])
+  // const [position,setPosition] = useState(["","","","","","","","",""])
   // const [position,setPosition] = useLocalStorage("position",["","","","","","","","",""])
-  // const {sendPosition,position} = useGame()  
+  const {sendPosition,position} = useGame()  
 
   
   // const [player,setPlayer] = useLocalStorage("player")
@@ -93,8 +93,8 @@ const GamePage = () => {
   const handleBoxClick = (event) => {
     if (player === "X") {
       const index = event.target.getAttribute("data-boxPosition")
-      // sendPosition(index,player)
-      position[index] = "X"
+      sendPosition(index,player)
+      // position[index] = "X"
       // setPosition(position)
       event.currentTarget.id = "X";
       event.currentTarget.style.pointerEvents = "none";
@@ -109,8 +109,8 @@ const GamePage = () => {
       setPlayer("O")
     } else {
       const index = event.target.getAttribute("data-boxPosition")
-      // sendPosition(index,player)
-      position[index] = "O"
+      sendPosition(index,player)
+      // position[index] = "O"
       // setPosition(position)
       event.currentTarget.id = "O";
       event.currentTarget.pointerEvents = "none";
