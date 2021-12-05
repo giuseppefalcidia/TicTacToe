@@ -114,7 +114,7 @@ const App = () => {
 
         // ? Successful tost message
         const loginSuccessful = () => {
-          toast("Login successful!! Taking you to the game! 👾  🎲 ", {
+          toast("Login successful!! Taking you to your dashboard! 👾  🎲 ", {
             position: "top-center",
             autoClose: 2000,
             draggable: false,
