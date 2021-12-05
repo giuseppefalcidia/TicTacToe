@@ -18,7 +18,7 @@ const Dashboard = (props) => {
   useEffect(() => {
     Aos.init({ duration: 1000, once: true });
   }, []);
-  
+
   return (
     <div className="dashboard-container">
       <h1
@@ -26,11 +26,7 @@ const Dashboard = (props) => {
         // AOS
         data-aos="fade-right"
       >
-        Welcome{" "}
-        <span className="dashboard-header-user">
-          {props.currentUser.username}
-        </span>
-        !
+        Welcome <span className="dashboard-header-user">{props.username}</span>!
       </h1>
 
       <button
@@ -69,7 +65,7 @@ const Dashboard = (props) => {
           </form>
         </div>
       )}
-        
+
       <Link to="/gamepage" alt="Link to start game.">
         <button
           className="start-game-button"
