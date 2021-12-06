@@ -240,6 +240,48 @@ const App = () => {
       });
   };
 
+  // const changePassword = (event) => {
+  //   event.preventDefault();
+
+  //   const changePassword = {
+  //     // userId: currentUser._id,
+  //     newPassword: newPassword,
+  //   };
+
+  //   const jsonPasswordData = JSON.stringify(changePassword);
+
+  //   const settings = {
+  //     method: "PATCH",
+  //     body: jsonPasswordData,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   };
+
+  //   fetch(`${frontendURL}/user/${currentUser._id}`, settings)
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         return response.json();
+  //       } else {
+  //         switch (response.status) {
+  //           case 404:
+  //             return response.json().then((err) => {
+  //               throw new Error(err.message);
+  //             });
+  //           default:
+  //             throw new Error("unknown");
+  //         }
+  //       }
+  //     })
+  //     .then((data) => {
+  //       console.log("Updated:", data);
+  //       setNewPassword("");
+  //     })
+  //     .catch((err) => {
+  //       alert(err.message);
+  //     });
+  // };
+
   const changePassword = (event) => {
     event.preventDefault();
 
